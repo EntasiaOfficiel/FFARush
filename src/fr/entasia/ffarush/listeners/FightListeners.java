@@ -26,20 +26,17 @@ public class FightListeners implements Listener {
 	@EventHandler
 	public static void damage(EntityDamageEvent e) {
 		if(e.getEntity().getWorld()!=FFAUtils.world)return;
-
-		if(RegionManager.getRegionsAtLocation(e.getEntity().getLocation()).contains(FFAUtils.reg_arena)){
-			if(e.getEntity() instanceof Player){
-				if(e.getCause()==EntityDamageEvent.DamageCause.PROJECTILE||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_ATTACK)return;
-				if(e.getCause()==EntityDamageEvent.DamageCause.BLOCK_EXPLOSION||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_EXPLOSION||
-						e.getCause()== EntityDamageEvent.DamageCause.FALL){
-					e.setDamage(0);
-				}else{
-					Player p = (Player)e.getEntity();
-					if(e.getFinalDamage()<p.getHealth())return;
-					e.setCancelled(true);
-					p.sendMessage("§7Tu es mort !");
-					kill(p);
-				}
+		if(e.getEntity() instanceof Player){
+			if(e.getCause()==EntityDamageEvent.DamageCause.PROJECTILE||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_ATTACK)return;
+			if(e.getCause()==EntityDamageEvent.DamageCause.BLOCK_EXPLOSION||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_EXPLOSION||
+					e.getCause()== EntityDamageEvent.DamageCause.FALL){
+				e.setDamage(0);
+			}else{
+				Player p = (Player)e.getEntity();
+				if(e.getFinalDamage()<p.getHealth())return;
+				e.setCancelled(true);
+				p.sendMessage("§7Tu es mort !");
+				kill(p);
 			}
 		}else e.setCancelled(true);
 	}

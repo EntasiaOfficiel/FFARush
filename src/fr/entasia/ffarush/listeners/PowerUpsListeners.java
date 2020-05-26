@@ -46,13 +46,14 @@ public class PowerUpsListeners implements Listener {
 				Random r = new Random();
 				new BukkitRunnable() {
 					int i = 0;
+					Location loc;
 					public void run() {
-						if(i>200||e.getProjectile().isOnGround()){
+						loc = e.getProjectile().getLocation();
+						if(i>200||e.getProjectile().isOnGround()||!RegionManager.getRegionsAtLocation(loc).contains(FFAUtils.reg_arena)){
 							e.getProjectile().remove();
 							cancel();
 							return;
 						}
-						Location loc = e.getProjectile().getLocation();
 
 						loc.setY(11);
 						softReplace(loc.getBlock(), bl.getType(), b);

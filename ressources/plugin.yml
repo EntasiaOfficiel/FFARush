@@ -1,0 +1,13 @@
+name: FFARush
+author: iTrooz_
+description: FFarush
+version: 1.2.0
+main: fr.entasia.ffarush.Main
+softdepend: [Multiverse-Core]
+depend: [Libraries, EGTools]
+commands:
+  ffarush:
+    aliases: [ffa]
+
+  ffarushpl:
+    aliases: [ffapl]

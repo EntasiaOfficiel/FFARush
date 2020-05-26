@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="FFARush" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7fd04502-634a-48f5-b23d-456645818d43" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/entasia/ffarush/FFAUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/entasia/ffarush/FFAUtils.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1TfMiqiASk8L638sytB1kPC1HUk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="ffarush" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EGTools" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15722656" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\iTrooz_\workspaces\intellij-entasia-2\FFARush\ressources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fr.entasia.ffarush" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ffp" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SQLConnection">
+    <configuration name="FFARushCmd" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.entasia.ffarush.commands.FFARushCmd" />
+      <module name="FFARush" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.entasia.ffarush.commands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FightListeners" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.entasia.ffarush.listeners.FightListeners" />
+      <module name="FFARush" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.entasia.ffarush.listeners.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.entasia.ffarush.Main" />
+      <module name="FFARush" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.entasia.ffarush.commands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SQLConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.entasia.ffarush.utils.SQLConnection" />
+      <module name="FFARush" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.entasia.ffarush.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SQLConnection" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.FightListeners" />
+        <item itemvalue="Application.FFARushCmd" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="a">
+      <created>1576776879953</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1576776879953</updated>
+    </task>
+    <task id="LOCAL-00002" summary="a">
+      <created>1576780699780</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1576780699780</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fd04502-634a-48f5-b23d-456645818d43" name="Default Changelist" comment="" />
+      <created>1576858458350</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576858458350</updated>
+    </task>
+    <task id="LOCAL-00003" summary="a">
+      <created>1576861443722</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1576861443722</updated>
+    </task>
+    <task id="LOCAL-00004" summary="a">
+      <created>1576863740640</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1576863740640</updated>
+    </task>
+    <task id="LOCAL-00005" summary="a">
+      <created>1576863883322</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1576863883322</updated>
+    </task>
+    <task id="LOCAL-00006" summary="a">
+      <created>1576879013546</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1576879013546</updated>
+    </task>
+    <task id="LOCAL-00007" summary="a">
+      <created>1576880842283</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1576880842283</updated>
+    </task>
+    <task id="LOCAL-00008" summary="a">
+      <created>1576929493186</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1576929493186</updated>
+    </task>
+    <task id="LOCAL-00009" summary="a">
+      <created>1576939342774</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1576939342774</updated>
+    </task>
+    <task id="LOCAL-00010" summary="a">
+      <created>1577181617238</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1577181617238</updated>
+    </task>
+    <task id="LOCAL-00011" summary="a">
+      <created>1577181681461</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1577181681461</updated>
+    </task>
+    <task id="LOCAL-00012" summary="a">
+      <created>1577816504255</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1577816504255</updated>
+    </task>
+    <task id="LOCAL-00013" summary="a">
+      <created>1577886081188</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1577886081188</updated>
+    </task>
+    <task id="LOCAL-00014" summary="a">
+      <created>1577909376141</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1577909376141</updated>
+    </task>
+    <task id="LOCAL-00015" summary="a">
+      <created>1577909386762</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1577909386762</updated>
+    </task>
+    <task id="LOCAL-00016" summary="a">
+      <created>1577920296568</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1577920296568</updated>
+    </task>
+    <task id="LOCAL-00017" summary="a">
+      <created>1578050492519</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1578050492519</updated>
+    </task>
+    <task id="LOCAL-00018" summary="a">
+      <created>1578082033046</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1578082033046</updated>
+    </task>
+    <task id="LOCAL-00019" summary="a">
+      <created>1578132200683</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1578132200683</updated>
+    </task>
+    <task id="LOCAL-00020" summary="a">
+      <created>1580142967495</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1580142967495</updated>
+    </task>
+    <task id="LOCAL-00021" summary="a">
+      <created>1585066076414</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1585066076414</updated>
+    </task>
+    <task id="LOCAL-00022" summary="a">
+      <created>1587749460638</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1587749460638</updated>
+    </task>
+    <task id="LOCAL-00023" summary="a">
+      <created>1589548866370</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1589548866370</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="a" />
+    <option name="LAST_COMMIT_MESSAGE" value="a" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1589736320576">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1589736320576" />
+    <state x="511" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1589908537843">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="511" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1589908537843" />
+    <state x="586" y="114" width="697" height="738" key="CommitChangelistDialog2" timestamp="1589548865734">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1585066075619" />
+    <state x="586" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1589548865734" />
+    <state x="740" y="274" width="612" height="507" key="FileChooserDialogImpl" timestamp="1590164544011">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1585996139585" />
+    <state x="2568" y="266" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1680.1010@1920.0.1680.1010" timestamp="1584549750814" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1590164544011" />
+    <state x="440" y="99" width="1026" height="738" key="SettingsEditor" timestamp="1585065928895">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="99" key="SettingsEditor/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1585065928895" />
+    <state x="552" y="252" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1589548867218">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1585066079031" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1589548867218" />
+    <state x="1162" y="221" width="737" height="606" key="find.popup" timestamp="1590164539586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1162" y="221" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1582819039409" />
+    <state x="1162" y="221" width="737" height="606" key="find.popup/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1590164539586" />
+  </component>
+</project>

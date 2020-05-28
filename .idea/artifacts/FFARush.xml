@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="FFARush">
-    <output-path>$USER_HOME$/Desktop</output-path>
-    <root id="archive" name="FFARush.jar">
-      <element id="module-output" name="FFARush" />
-      <element id="dir-copy" path="$PROJECT_DIR$/ressources" />
-    </root>
-  </artifact>
-</component>

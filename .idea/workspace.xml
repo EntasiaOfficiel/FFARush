@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7fd04502-634a-48f5-b23d-456645818d43" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fr/entasia/ffarush/listeners/OtherListeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fr/entasia/ffarush/listeners/OtherListeners.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,7 @@
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="ffarush" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EGTools" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15722656" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -329,11 +330,11 @@
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1585996139585" />
     <state x="2568" y="266" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1680.1010@1920.0.1680.1010" timestamp="1584549750814" />
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1590516480942" />
-    <state x="440" y="99" width="1026" height="738" key="SettingsEditor" timestamp="1590516092347">
+    <state x="440" y="99" width="1026" height="738" key="SettingsEditor" timestamp="1590661491100">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="99" key="SettingsEditor/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1585065928895" />
-    <state x="440" y="99" key="SettingsEditor/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1590516092347" />
+    <state x="440" y="99" key="SettingsEditor/0.0.1920.1040/1920.26.1680.1010@0.0.1920.1040" timestamp="1590661491100" />
     <state x="552" y="252" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1589548867218">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

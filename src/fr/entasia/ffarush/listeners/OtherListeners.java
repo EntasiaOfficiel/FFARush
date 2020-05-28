@@ -103,8 +103,9 @@ public class OtherListeners implements Listener {
 
 	@EventHandler
 	public static void blockIgnite(BlockIgniteEvent e) {
-		if (e.getBlock().getWorld() != FFAUtils.world) return;
-		e.setCancelled(true);
+		if (e.getBlock().getWorld() == FFAUtils.world){
+			e.setCancelled(true);
+		}
 	}
 
 
@@ -126,8 +127,13 @@ public class OtherListeners implements Listener {
 				if(e.getHand()==EquipmentSlot.HAND)e.getPlayer().getInventory().setItemInMainHand(item);
 				if(e.getHand()==EquipmentSlot.OFF_HAND)e.getPlayer().getInventory().setItemInOffHand(item);
 				e.getPlayer().updateInventory();
-			}else if(e.getBlockPlaced().getType()!=Material.TNT) e.setCancelled(e.getPlayer().getGameMode()!=GameMode.CREATIVE);
-		}else e.setCancelled(e.getPlayer().getGameMode()!=GameMode.CREATIVE);
+				e.setBuild(true);
+				e.setCancelled(false);
+			}else if(e.getBlockPlaced().getType()==Material.TNT){
+				e.setBuild(true);
+				e.setCancelled(false);
+			}
+		}
 	}
 
 
@@ -141,9 +147,10 @@ public class OtherListeners implements Listener {
 					ItemStack tnt = FFAUtils.ffaitems[4].clone();
 					tnt.setAmount(1);
 					e.getPlayer().getInventory().addItem(tnt);
+					e.setCancelled(false);
 				}
-			}else e.setCancelled(e.getPlayer().getGameMode()!=GameMode.CREATIVE);
-		}else e.setCancelled(e.getPlayer().getGameMode()!=GameMode.CREATIVE);
+			}
+		}
 	}
 
 	@EventHandler

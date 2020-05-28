@@ -127,10 +127,8 @@ public class OtherListeners implements Listener {
 				if(e.getHand()==EquipmentSlot.HAND)e.getPlayer().getInventory().setItemInMainHand(item);
 				if(e.getHand()==EquipmentSlot.OFF_HAND)e.getPlayer().getInventory().setItemInOffHand(item);
 				e.getPlayer().updateInventory();
-				e.setBuild(true);
 				e.setCancelled(false);
 			}else if(e.getBlockPlaced().getType()==Material.TNT){
-				e.setBuild(true);
 				e.setCancelled(false);
 			}
 		}

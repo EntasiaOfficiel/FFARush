@@ -141,11 +141,11 @@ public class OtherListeners implements Listener {
 
 		if(RegionManager.getRegionsAtLocation(e.getBlock().getLocation()).contains(FFAUtils.reg_arena)) { // en pvp
 			if(FFAUtils.canbeBroken(e.getBlock())){
+				e.setCancelled(false);
 				if(e.getBlock().getType()==Material.TNT){
 					ItemStack tnt = FFAUtils.ffaitems[4].clone();
 					tnt.setAmount(1);
 					e.getPlayer().getInventory().addItem(tnt);
-					e.setCancelled(false);
 				}
 			}
 		}

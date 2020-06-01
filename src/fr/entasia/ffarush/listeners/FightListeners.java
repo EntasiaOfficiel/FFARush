@@ -91,12 +91,11 @@ public class FightListeners implements Listener {
 		if(ffp.deathParticle == null){
 			ffp.p.getWorld().spawnParticle(Particle.LAVA, ffp.p.getLocation(), 50, 0.4, 0.7, 0.4, 0.08);
 		} else{
-			for(DeathParticle particle : DeathParticle.values()){
-				if(ffp.deathParticle == particle){
-					particle.update(ffp.p.getLocation(),ffp);
 
-				}
-			}
+			ffp.deathParticle.update(ffp.p.getLocation(),ffp);
+
+
+
 		}
 
 		FFAUtils.tpSpawnFFA(ffp.p, false);

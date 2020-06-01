@@ -3,10 +3,7 @@ package fr.entasia.ffarush.deathParticle;
 import fr.entasia.apis.ServerUtils;
 import fr.entasia.apis.other.InstantFirework;
 import fr.entasia.ffarush.utils.FFAPlayer;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -21,12 +18,35 @@ public enum DeathParticle {
                 @Override
                 public void update(Location loc) {
                     FireworkEffect effects = FireworkEffect.builder().withColor(Color.RED,Color.GREEN).with(FireworkEffect.Type.BALL).flicker(true).build();
-                    InstantFirework.explode(loc.add(0,1,0),effects);
+                    InstantFirework.explode(loc.add(0,2.5,0),effects);
                 }
 
 
             }
 
+    ),
+
+
+    BLOOD(502, new ItemStack(Material.REDSTONE), "§7Traces de sang", "§7C'est un peu sanguinaire, mais ça a le mérite d'être clair", 1000,
+
+            new ParticleStruct() {
+                @Override
+                public void update(Location loce) {
+                    Location loc = loce.add(0,-1,0);
+                    loc.getWorld().spawnParticle(Particle.REDSTONE,loc,10,1,1,1,0);
+                }
+            }
+
+    ),
+    RAINBOW(502, new ItemStack(Material.INK_SACK, 1, (short) 12),"§7Feu d'artifice multicolore", "§7Alors là ya pas à dire , c'est beau la couleur !", 1000,
+
+            new ParticleStruct() {
+                @Override
+                public void update(Location loce) {
+                    FireworkEffect effects = FireworkEffect.builder().withColor(Color.RED,Color.GREEN,Color.AQUA,Color.GRAY,Color.ORANGE,Color.YELLOW,Color.BLUE,Color.FUCHSIA,Color.LIME,Color.PURPLE,Color.TEAL).withFade(Color.RED,Color.GREEN,Color.AQUA,Color.GRAY,Color.ORANGE,Color.YELLOW,Color.BLUE,Color.FUCHSIA,Color.LIME,Color.PURPLE,Color.TEAL).with(FireworkEffect.Type.BALL_LARGE).flicker(true).trail(false).build();
+                    InstantFirework.explode(loce.add(0,2.5,0),effects);
+                }
+            }
     );
 
 

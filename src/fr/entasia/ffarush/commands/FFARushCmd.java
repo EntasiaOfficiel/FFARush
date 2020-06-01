@@ -1,6 +1,7 @@
 package fr.entasia.ffarush.commands;
 
 import fr.entasia.ffarush.FFAUtils;
+import fr.entasia.ffarush.deathParticle.ParticleInv;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,13 @@ public class FFARushCmd implements CommandExecutor {
 				FFAUtils.tpSpawnFFA(p, true);
 			}else if (arg[0].equalsIgnoreCase("start")) {
 				FFAUtils.joinFFA(p);
-			}else p.sendMessage("§cCet argument est inccorect");
+			}else if(arg[0].equalsIgnoreCase("particle")){
+				if(p.getDisplayName().equalsIgnoreCase("Stargeyt") || p.getDisplayName().equalsIgnoreCase("iTrooz_")){
+					ParticleInv.deathParticleOpenMenu(p);
+				}
+			}else{
+				p.sendMessage("§cCet argument est inccorect");
+			}
 		}
 		return true;
 	}

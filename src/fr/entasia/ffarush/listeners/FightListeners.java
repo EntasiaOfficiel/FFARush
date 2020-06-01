@@ -4,9 +4,11 @@ import fr.entasia.apis.ChatComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
+import fr.entasia.ffarush.deathParticle.DeathParticle;
 import fr.entasia.ffarush.utils.FFADamager;
 import fr.entasia.ffarush.utils.FFAPlayer;
 import net.md_5.bungee.api.ChatMessageType;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -27,7 +29,12 @@ public class FightListeners implements Listener {
 	public static void damage(EntityDamageEvent e) {
 		if(e.getEntity().getWorld()!=FFAUtils.world)return;
 		if(e.getEntity() instanceof Player){
+			if(RegionManager.getRegionsAtLocation(e.getEntity().getLocation()).contains(FFAUtils.reg_spawn)) {
+				e.setCancelled(true);
+				return;
+			}
 			if(e.getCause()==EntityDamageEvent.DamageCause.PROJECTILE||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_ATTACK)return;
+
 			if(e.getCause()==EntityDamageEvent.DamageCause.BLOCK_EXPLOSION||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_EXPLOSION||
 					e.getCause()== EntityDamageEvent.DamageCause.FALL){
 				e.setDamage(0);
@@ -81,7 +88,17 @@ public class FightListeners implements Listener {
 	public static void kill(FFAPlayer ffp){
 		ffp.deaths++;
 		ffp.ks = 0;
-		ffp.p.getWorld().spawnParticle(Particle.LAVA, ffp.p.getLocation(), 50, 0.4, 0.7, 0.4, 0.08);
+		if(ffp.deathParticle == null){
+			ffp.p.getWorld().spawnParticle(Particle.LAVA, ffp.p.getLocation(), 50, 0.4, 0.7, 0.4, 0.08);
+		} else{
+			for(DeathParticle particle : DeathParticle.values()){
+				if(ffp.deathParticle == particle){
+					particle.update(ffp.p.getLocation(),ffp);
+
+				}
+			}
+		}
+
 		FFAUtils.tpSpawnFFA(ffp.p, false);
 		ffp.sb.refreshDeaths();
 		ffp.sb.refreshRatio();

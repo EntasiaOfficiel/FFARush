@@ -65,16 +65,24 @@ public class FFARushPlCmd implements CommandExecutor {
 					else p.sendMessage("§cEchec");
 				} else if (arg[0].equalsIgnoreCase("damageticks")) {
 					if (arg.length ==2) {
-						try {
-							int t = Integer.parseInt(arg[1]);
-							if (t < 1 || t > 40) throw new NumberFormatException();
-							FFAUtils.damageticks = t;
-							p.sendMessage("§cTicks d'invicibilité définis à " + t + " !");
+						if(arg[1].equals("default")){
+							FFAUtils.damageticks = Main.main.getConfig().getInt("damageticks");
 							for (Player lp : FFAUtils.world.getPlayers()) {
-								lp.setMaximumNoDamageTicks(t);
+								lp.setMaximumNoDamageTicks(FFAUtils.damageticks);
 							}
-						} catch (NumberFormatException e) {
-							p.sendMessage("§cCe nombre est invalide ! Met un nombre entre 0 et 40 !");
+							p.sendMessage("§cTicks d'invincibilité réinitialisés !");
+						}else{
+							try {
+								int t = Integer.parseInt(arg[1]);
+								if (t < 1 || t > 40) throw new NumberFormatException();
+								FFAUtils.damageticks = t;
+								p.sendMessage("§cTicks d'invicibilité définis à " + t + " !");
+								for (Player lp : FFAUtils.world.getPlayers()) {
+									lp.setMaximumNoDamageTicks(t);
+								}
+							} catch (NumberFormatException e) {
+								p.sendMessage("§cCe nombre est invalide ! Met un nombre entre 0 et 40 / default !");
+							}
 						}
 					}else p.sendMessage("§cMet un nombre !");
 				}else{

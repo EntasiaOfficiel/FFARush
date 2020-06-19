@@ -1,6 +1,5 @@
 package fr.entasia.ffarush.deathParticle;
 
-import fr.entasia.apis.ServerUtils;
 import fr.entasia.apis.other.InstantFirework;
 import fr.entasia.ffarush.utils.FFAPlayer;
 import org.bukkit.*;

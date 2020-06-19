@@ -2,7 +2,6 @@ package fr.entasia.ffarush.commands;
 
 import fr.entasia.ffarush.FFAUtils;
 import fr.entasia.ffarush.Main;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

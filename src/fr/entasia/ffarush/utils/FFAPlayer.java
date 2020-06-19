@@ -16,6 +16,11 @@ public class FFAPlayer {
 	public byte[] inv;
 	public SBManager sb;
 
+
+	public Player lastDamager;
+	public long lastDamage;
+
+
 	public FFAPlayer(Player p){
 		this.p = p;
 	}

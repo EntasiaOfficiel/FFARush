@@ -1,14 +1,9 @@
 package fr.entasia.ffarush.listeners;
 
-import fr.entasia.apis.ChatComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
-import fr.entasia.ffarush.deathParticle.DeathParticle;
-import fr.entasia.ffarush.utils.FFADamager;
 import fr.entasia.ffarush.utils.FFAPlayer;
-import net.md_5.bungee.api.ChatMessageType;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -18,12 +13,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.Date;
-import java.util.HashMap;
 
 public class FightListeners implements Listener {
-
-	public static HashMap<Player, FFADamager> damageBank = new HashMap<>();
-
 
 	@EventHandler
 	public static void damage(EntityDamageEvent e) {
@@ -59,10 +50,12 @@ public class FightListeners implements Listener {
 				p.getInventory().setChestplate(FFAUtils.ffaarmor[1]);
 			}
 
-			Player dam=null;
+			Player dam =null;
 			if(e.getDamager() instanceof Player){
 				dam = (Player) e.getDamager();
-				damageBank.put(p, new FFADamager(dam));
+				FFAPlayer ffp = FFAUtils.playerCache.get(p.getUniqueId());
+				ffp.lastDamager = dam;
+				ffp.lastDamage = new Date().getTime();
 
 				if(dam.getInventory().getChestplate()!=null&&dam.getInventory().getChestplate().getType()==Material.ELYTRA){
 					dam.getInventory().setChestplate(FFAUtils.ffaarmor[1]);
@@ -71,8 +64,9 @@ public class FightListeners implements Listener {
 				}
 			}
 			if(e.getFinalDamage()<p.getHealth()){
-				if(dam!=null)
-					dam.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+(int)(p.getHealth()-e.getFinalDamage())+"§6/§420 §c❤"));
+				if(dam!=null){
+					dam.sendActionBar("§4"+(int)(p.getHealth()-e.getFinalDamage())+"§6/§420 §c❤");
+				}
 			}else{
 				e.setCancelled(true);
 				kill(p);
@@ -102,10 +96,9 @@ public class FightListeners implements Listener {
 		ffp.sb.refreshDeaths();
 		ffp.sb.refreshRatio();
 		ffp.sb.refreshKs();
-		FFADamager ffd = damageBank.remove(ffp.p);
-		if(ffd==null||new Date().getTime()-ffd.time>20000)ffp.p.sendMessage("§7Tu es mort !");
+		FFAPlayer damager = FFAUtils.playerCache.get(ffp.lastDamager.getUniqueId());
+		if(damager==null||new Date().getTime()-ffp.lastDamage>20000)ffp.p.sendMessage("§7Tu es mort !");
 		else{
-			FFAPlayer damager = FFAUtils.playerCache.get(ffd.damager.getUniqueId());
 			damager.kills++;
 			damager.ks++;
 			MoneyUtils.addMoney(damager.p.getUniqueId(), (int)(Math.random()*1.8)+1);
@@ -114,10 +107,14 @@ public class FightListeners implements Listener {
 			damager.sb.refreshKs();
 			damager.sb.refreshMoney();
 			ffp.p.sendMessage("§7Tu as été tué par §c"+damager.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
-			ffp.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§cTué par "+damager.p.getDisplayName()+" !"));
+			ffp.p.sendActionBar("§cTué par "+damager.p.getDisplayName()+" !");
 			damager.p.sendMessage("§7Tu as tué §c"+ffp.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
-			damager.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+ffp.p.getDisplayName()+" §ctué !"));
+			damager.p.sendActionBar("§4"+ffp.p.getDisplayName()+" §ctué !");
 			damager.p.setHealth(20);
+
+			ffp.lastDamage = 0;
+			ffp.lastDamager = null;
+
 		}
 	}
 }

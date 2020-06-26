@@ -1,6 +1,6 @@
 package fr.entasia.ffarush.utils;
 
-import fr.entasia.apis.ServerUtils;
+import fr.entasia.apis.utils.ServerUtils;
 import fr.entasia.ffarush.FFAUtils;
 import org.bukkit.scheduler.BukkitRunnable;
 

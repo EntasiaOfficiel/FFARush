@@ -1,7 +1,7 @@
 package fr.entasia.ffarush;
 
 
-import fr.entasia.apis.ServerUtils;
+import fr.entasia.apis.utils.ServerUtils;
 import fr.entasia.apis.nbt.ItemNBT;
 import fr.entasia.apis.nbt.NBTComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;

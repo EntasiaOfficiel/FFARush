@@ -96,7 +96,7 @@ public class FightListeners implements Listener {
 
 		FFAUtils.tpSpawnFFA(ffp.p, false);
 		ffp.sb.refreshDeaths();
-		ffp.sb.refreshRatio();
+		ffp.sb.refreshRatio();G
 		ffp.sb.refreshKs();
 		FFAPlayer damager = FFAUtils.playerCache.get(ffp.lastDamager.getUniqueId());
 		if(damager==null||new Date().getTime()-ffp.lastDamage>20000)ffp.p.sendMessage("§7Tu es mort !");

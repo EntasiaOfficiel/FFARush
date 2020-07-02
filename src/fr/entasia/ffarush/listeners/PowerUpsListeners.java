@@ -120,7 +120,7 @@ public class PowerUpsListeners implements Listener {
 	public static void a(EntityToggleGlideEvent e) {
 		if(e.getEntity().getWorld() == FFAUtils.world&&e.getEntity() instanceof Player){
 			Player p = (Player)e.getEntity();
-			if(p.isGliding())p.getInventory().setChestplate(FFAUtils.ffaarmor[1]);
+			if(!e.isGliding())p.getInventory().setChestplate(FFAUtils.ffaarmor[1]);
 		}
 	}
 

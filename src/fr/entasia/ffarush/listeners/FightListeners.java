@@ -26,7 +26,8 @@ public class FightListeners implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-			if(e.getCause()==EntityDamageEvent.DamageCause.PROJECTILE||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_ATTACK)e.setCancelled(true);
+			if(e.getCause()==EntityDamageEvent.DamageCause.ENTITY_ATTACK)return;
+			if(e.getCause()==EntityDamageEvent.DamageCause.PROJECTILE)e.setCancelled(true);
 			else if(e.getCause()==EntityDamageEvent.DamageCause.BLOCK_EXPLOSION||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_EXPLOSION||
 					e.getCause()== EntityDamageEvent.DamageCause.FALL){
 				e.setDamage(0);
@@ -65,9 +66,8 @@ public class FightListeners implements Listener {
 				}
 			}
 			if(e.getFinalDamage()<p.getHealth()){
-				if(dam!=null){
-					dam.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+(int)(p.getHealth()-e.getFinalDamage())+"§6/§420 §c❤"));
-				}
+				if(dam!=null) dam.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+(int)(p.getHealth()-e.getFinalDamage())+"§6/§420 §c❤"));
+
 			}else{
 				e.setCancelled(true);
 				kill(p);
@@ -86,36 +86,34 @@ public class FightListeners implements Listener {
 		if(ffp.deathParticle == null){
 			ffp.p.getWorld().spawnParticle(Particle.LAVA, ffp.p.getLocation(), 50, 0.4, 0.7, 0.4, 0.08);
 		} else{
-
 			ffp.deathParticle.update(ffp.p.getLocation(),ffp);
-
-
-
 		}
 
 		FFAUtils.tpSpawnFFA(ffp.p, false);
 		ffp.sb.refreshDeaths();
 		ffp.sb.refreshRatio();
 		ffp.sb.refreshKs();
-		FFAPlayer damager = FFAUtils.playerCache.get(ffp.lastDamager.getUniqueId());
-		if(damager==null||new Date().getTime()-ffp.lastDamage>20000)ffp.p.sendMessage("§7Tu es mort !");
-		else{
-			damager.kills++;
-			damager.ks++;
-			MoneyUtils.addMoney(damager.p.getUniqueId(), (int)(Math.random()*1.8)+1);
-			damager.sb.refreshKills();
-			damager.sb.refreshRatio();
-			damager.sb.refreshKs();
-			damager.sb.refreshMoney();
-			ffp.p.sendMessage("§7Tu as été tué par §c"+damager.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
-			ffp.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§cTué par "+damager.p.getDisplayName()+" !"));
-			damager.p.sendMessage("§7Tu as tué §c"+ffp.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
-			damager.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+ffp.p.getDisplayName()+" §ctué !"));
-			damager.p.setHealth(20);
+		if(ffp.lastDamager!=null&&new Date().getTime()-ffp.lastDamage<15000){
+			FFAPlayer damager = FFAUtils.playerCache.get(ffp.lastDamager.getUniqueId());
+			if(damager!=null){
+				damager.kills++;
+				damager.ks++;
+				MoneyUtils.addMoney(damager.p.getUniqueId(), (int)(Math.random()*1.8)+1);
+				damager.sb.refreshKills();
+				damager.sb.refreshRatio();
+				damager.sb.refreshKs();
+				damager.sb.refreshMoney();
+				ffp.p.sendMessage("§7Tu as été tué par §c"+damager.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
+				ffp.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§cTué par "+damager.p.getDisplayName()+" !"));
+				damager.p.sendMessage("§7Tu as tué §c"+ffp.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
+				damager.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+ffp.p.getDisplayName()+" §ctué !"));
+				damager.p.setHealth(20);
 
-			ffp.lastDamage = 0;
-			ffp.lastDamager = null;
-
+				ffp.lastDamage = 0;
+				ffp.lastDamager = null;
+				return;
+			}
 		}
+		ffp.p.sendMessage("§7Tu es mort !");
 	}
 }

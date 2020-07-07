@@ -13,7 +13,6 @@ import fr.entasia.ffarush.listeners.FightListeners;
 import fr.entasia.ffarush.listeners.OtherListeners;
 import fr.entasia.ffarush.listeners.PowerUpsListeners;
 import fr.entasia.ffarush.utils.Task5m;
-import fr.entasia.ffarush.utils.TaskSign;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -70,7 +69,6 @@ public class Main extends JavaPlugin {
 			getCommand("ffarushpl").setExecutor(new FFARushPlCmd());
 			getCommand("ffarush").setExecutor(new FFARushCmd());
 			new Task5m().runTaskTimerAsynchronously(this, 1150, 6000); // 5 minutes = 300 secondes = 6000 ticks
-			new TaskSign().runTaskTimer(this,1150,6000);
 
 			FFAUtils.reg_arena = RegionManager.getRegionByName("ffa_arena");
 			FFAUtils.reg_spawn = RegionManager.getRegionByName("ffa_spawn");

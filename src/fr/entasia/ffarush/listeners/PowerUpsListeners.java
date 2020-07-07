@@ -96,7 +96,7 @@ public class PowerUpsListeners implements Listener {
 
 
 	@EventHandler
-	public static void Elytra(PlayerInteractEvent e) {
+	public static void a(PlayerInteractEvent e) {
 		if (e.getPlayer().getWorld() != FFAUtils.world) return;
 
 		if (e.getAction().equals(Action.PHYSICAL)) {
@@ -117,15 +117,15 @@ public class PowerUpsListeners implements Listener {
 	}
 
 	@EventHandler
-	public static void Elytra(EntityToggleGlideEvent e) {
-		if(e.getEntity().getWorld() == FFAUtils.world||e.getEntity() instanceof Player){
+	public static void a(EntityToggleGlideEvent e) {
+		if(e.getEntity().getWorld() == FFAUtils.world&&e.getEntity() instanceof Player){
 			Player p = (Player)e.getEntity();
-			if(p.isGliding())p.getInventory().setChestplate(FFAUtils.ffaarmor[1]);
+			if(!e.isGliding())p.getInventory().setChestplate(FFAUtils.ffaarmor[1]);
 		}
 	}
 
 	@EventHandler
-	public static void Explosion(EntityExplodeEvent e) {
+	public static void a(EntityExplodeEvent e) {
 		if (e.getEntity().getWorld() != FFAUtils.world) return;
 		HashMap<UUID, Vector> vecs = new HashMap<>();
 		for(Block b : e.blockList()){

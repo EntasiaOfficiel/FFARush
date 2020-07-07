@@ -72,7 +72,6 @@ public class OtherListeners implements Listener {
 
 	@EventHandler
 	public static void onQuit(PlayerQuitEvent e) {
-		FightListeners.damageBank.remove(e.getPlayer());
 		FFAPlayer ffp = FFAUtils.playerCache.get(e.getPlayer().getUniqueId());
 		if(ffp!=null){
 			FFAUtils.saveUser(ffp);

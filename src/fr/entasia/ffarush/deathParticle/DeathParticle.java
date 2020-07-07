@@ -1,6 +1,5 @@
 package fr.entasia.ffarush.deathParticle;
 
-import fr.entasia.apis.ServerUtils;
 import fr.entasia.apis.other.InstantFirework;
 import fr.entasia.ffarush.utils.FFAPlayer;
 import org.bukkit.*;
@@ -10,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public enum DeathParticle {
 
 
-    GREEN_FIREWORK(501, new ItemStack(Material.FIREWORK), "§7Feu d'artifice vert et rouge", "§7Imaginez les différents morceaux de votre armure exploser, au moins ça impressione", 1000,
+    GREEN_FIREWORK(501, new ItemStack(Material.FIREWORK), "§7Feu d'artifice vert et rouge", "§7Imaginez les différents morceaux de votre armure exploser, au moins ça impressione", 612,
 
             new ParticleStruct() {
 
@@ -27,7 +26,7 @@ public enum DeathParticle {
     ),
 
 
-    BLOOD(502, new ItemStack(Material.REDSTONE), "§7Traces de sang", "§7C'est un peu sanguinaire, mais ça a le mérite d'être clair", 1000,
+    BLOOD(502, new ItemStack(Material.REDSTONE), "§7Traces de sang", "§7C'est un peu sanguinaire, mais ça a le mérite d'être clair", 300,
 
             new ParticleStruct() {
                 @Override
@@ -38,7 +37,7 @@ public enum DeathParticle {
             }
 
     ),
-    RAINBOW(502, new ItemStack(Material.INK_SACK, 1, (short) 12),"§7Feu d'artifice multicolore", "§7Alors là ya pas à dire , c'est beau la couleur !", 1000,
+    RAINBOW(502, new ItemStack(Material.INK_SACK, 1, (short) 12),"§7Feu d'artifice multicolore", "§7Alors là ya pas à dire , c'est beau la couleur !", 1300,
 
             new ParticleStruct() {
                 @Override

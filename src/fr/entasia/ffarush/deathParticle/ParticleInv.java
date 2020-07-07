@@ -17,6 +17,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
@@ -63,7 +65,8 @@ public class ParticleInv {
         }
     };
 
-    public static void deathParticleOpenMenu(Player p){
+    public static void deathParticleOpenMenu(FFAPlayer cp){
+
         int cosm = 0;
         for(DeathParticle c : DeathParticle.values()){
             cosm++;
@@ -74,15 +77,12 @@ public class ParticleInv {
         }
         Inventory inv = deathParticle.createInv(slot/9,"§7Menu particule de mort");
         int nextSlot = 1;
+        Player p =cp.p;
         for(DeathParticle c : DeathParticle.values()){
             ItemStack item = c.itemStack.clone();
             ItemMeta meta = item.getItemMeta();
             ArrayList<String> lore = new ArrayList<>(Collections.singletonList(c.description));
-            FFAPlayer cp = FFAUtils.playerCache.get(p.getUniqueId());
-            if(cp==null){
-                p.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");
-                p.closeInventory();
-            }
+
 
             if(cp.deathParticle!=null && cp.deathParticle.equals(c)){
                 lore.add("§6Cette particule de mort est déjà activée");

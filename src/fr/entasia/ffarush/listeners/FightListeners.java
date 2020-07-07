@@ -1,6 +1,6 @@
 package fr.entasia.ffarush.listeners;
 
-import fr.entasia.apis.ChatComponent;
+import fr.entasia.apis.other.ChatComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;

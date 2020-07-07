@@ -164,6 +164,9 @@ public class OtherListeners implements Listener {
 					tnt.setFuseTicks(9);
 				}
 			}
+			if(RegionManager.getRegionsAtLocation(e.getPlayer().getLocation()).contains(FFAUtils.reg_spawn)){ // au spawn
+				e.setCancelled(true);
+			}
 		}
 	}
 

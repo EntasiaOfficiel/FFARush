@@ -2,6 +2,7 @@ package fr.entasia.ffarush.utils;
 
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
+import fr.entasia.ffarush.deathParticle.ParticleInv;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -11,6 +12,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class InvsManager {
@@ -30,6 +33,17 @@ public class InvsManager {
 		item.setItemMeta(meta);
 		inv.setItem(15, item);
 
+		LocalDateTime now = LocalDateTime.now();
+		if(now.getMonthValue() >= 8 || now.getYear()>=2021 || p.getDisplayName().equalsIgnoreCase("Stargeyt") || p.getDisplayName().equalsIgnoreCase("iTrooz_")){
+			item = new ItemStack(Material.FIREWORK);
+			meta = item.getItemMeta();
+			meta.setDisplayName("§7Particules de mort");
+			item.setItemMeta(meta);
+			inv.setItem(22,item);
+		}
+
+
+
 		p.openInventory(inv);
 
 	}
@@ -42,6 +56,9 @@ public class InvsManager {
 					break;
 				case IRON_CHESTPLATE:
 					customInvOpen(FFAUtils.playerCache.get(p.getUniqueId()));
+					break;
+				case FIREWORK:
+					ParticleInv.deathParticleOpenMenu(FFAUtils.playerCache.get(p.getUniqueId()));
 					break;
 				default:
 					p.sendMessage("§cOops ! Fonction non créée ):");
@@ -140,6 +157,7 @@ public class InvsManager {
 			}
 		}
 	}
+
 
 	public static boolean customInvOpen(FFAPlayer ffp){
 		Inventory inv = Bukkit.createInventory(null, 18, "§7Modifier l'inventaire de départ");

@@ -158,16 +158,8 @@ public class ParticleInv {
                 MoneyUtils.removeMoney(uuid, c.price);
                 e.player.sendMessage("§2Vous avez acheté la particule de mort "+c.nom);
                 e.player.closeInventory();
-                Main.sql.checkConnect();
-                PreparedStatement ps;
-                try {
-                    ps = Main.sql.connection.prepareStatement("INSERT INTO particles(uuid,id) VALUES (?,?)");
-                    ps.setInt(2, c.id);
-                    ps.setString(1, e.player.getUniqueId().toString());
-                    ps.execute();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                Utils.unlockParticle(c.id,e.player.getUniqueId());
+
                 FFAPlayer cp = FFAUtils.playerCache.get(e.player.getUniqueId());
                 if(cp==null){
                     e.player.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");

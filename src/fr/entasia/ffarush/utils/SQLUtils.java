@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class SQLUtils {
 
 	public static PreparedStatement getSQLSaveObj(FFAPlayer ffp) throws SQLException {
-		PreparedStatement ps = Main.sqlConnection.connection.prepareStatement(
+		PreparedStatement ps = Main.sql.connection.prepareStatement(
 				"UPDATE entagames set ffa_kills=?, ffa_deaths=?, ffa_blocks=?, ffa_cblock=?, ffa_inv=? where uuid=?");
 		ps.setInt(1, ffp.kills);
 		ps.setInt(2, ffp.deaths);

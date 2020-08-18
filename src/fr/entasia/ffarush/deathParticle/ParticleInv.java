@@ -3,7 +3,7 @@ package fr.entasia.ffarush.deathParticle;
 import fr.entasia.apis.menus.MenuClickEvent;
 import fr.entasia.apis.menus.MenuCreator;
 import fr.entasia.cosmetiques.Main;
-import fr.entasia.cosmetiques.utils.Utils;
+import fr.entasia.cosmetiques.utils.CosmAPI;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
 import fr.entasia.ffarush.utils.FFAPlayer;
@@ -28,7 +28,7 @@ public class ParticleInv {
         public void onMenuClick(MenuClickEvent e) {
             for(DeathParticle c : DeathParticle.values()){
                 if(c.itemStack.getItemMeta().getDisplayName().equals(e.item.getItemMeta().getDisplayName())){
-                    if(Utils.haveCosm(c.id,e.player.getUniqueId(), false)){
+                    if(CosmAPI.haveCosm(c.id,e.player.getUniqueId(), false)){
                         e.player.sendMessage("§7Vous avez activé la particule de mort "+c.nom);
                         FFAPlayer ffp = FFAUtils.playerCache.get(e.player.getUniqueId());
                         if(ffp==null){
@@ -82,13 +82,14 @@ public class ParticleInv {
             if(cp==null){
                 p.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");
                 p.closeInventory();
+                return;
             }
 
             if(cp.deathParticle!=null && cp.deathParticle.equals(c)){
                 lore.add("§6Cette particule de mort est déjà activée");
                 meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 meta.addEnchant(Enchantment.LURE, 1, false);
-            }else if(Utils.haveCosm(c.id,p.getUniqueId(), false)){
+            }else if(CosmAPI.haveCosm(c.id,p.getUniqueId(), false)){
                 lore.add("§aVous possédez cette particule de mort");
                 meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 meta.addEnchant(Enchantment.LURE, 1, false);

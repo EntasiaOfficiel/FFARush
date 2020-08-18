@@ -161,7 +161,7 @@ public class FFAUtils {
 
 	public static boolean saveAllUsers() {
 		try{
-			Main.sqlConnection.checkConnect();
+			Main.sql.checkConnect();
 			for(FFAPlayer ffp : playerCache.values()){
 				SQLUtils.getSQLSaveObj(ffp).execute();
 				if(!ffp.p.isOnline()) playerCache.remove(ffp.p.getUniqueId());
@@ -176,7 +176,7 @@ public class FFAUtils {
 
 	public static boolean saveUser(FFAPlayer ffp) {
 		try{
-			Main.sqlConnection.checkConnect();
+			Main.sql.checkConnect();
 			SQLUtils.getSQLSaveObj(ffp).execute();
 			return true;
 		}catch(SQLException e){

@@ -25,7 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 
 	public static Main main;
-	public static SQLConnection sqlConnection;
+	public static SQLConnection sql;
 
 	public static void warn(String msg){
 		new EntasiaException(msg).printStackTrace();
@@ -58,8 +58,8 @@ public class Main extends JavaPlugin {
 			saveDefaultConfig();
 			loadConfig();
 
-			if(getConfig().getBoolean("dev", false)) sqlConnection = new SQLConnection("root");
-			else sqlConnection = new SQLConnection("entagames", "playerdata");
+			if(getConfig().getBoolean("dev", false)) sql = new SQLConnection("root");
+			else sql = new SQLConnection("entagames", "playerdata");
 
 
 			Bukkit.getConsoleSender().sendMessage("Plugin activé !");

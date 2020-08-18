@@ -36,10 +36,8 @@ public class OtherListeners implements Listener {
 	public static void onJoin(PlayerJoinEvent e) {
 		FFAPlayer ffp = new FFAPlayer(e.getPlayer());
 		try{ // ID = ITEM | VALUE = SLOT
-			Main.sqlConnection.checkConnect();
-			PreparedStatement ps = Main.sqlConnection.connection.prepareStatement("SELECT ffa_kills, ffa_deaths, ffa_blocks, ffa_cblock, ffa_inv from entagames where uuid=?");
-			ps.setString(1, ffp.p.getUniqueId().toString());
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs = Main.sql.fastSelectUnsafe(
+					"SELECT ffa_kills, ffa_deaths, ffa_blocks, ffa_cblock, ffa_inv from entagames where uuid=?", ffp.p.getUniqueId());
 			if(rs.next()){
 				ffp.kills = rs.getInt(1);
 				ffp.deaths = rs.getInt(2);

@@ -16,3 +16,44 @@ ffalocs:
   - '50;100;50;0'
 
 damageticks: 16
+
+halloffame:
+  kill:
+    1:
+      x:
+      y:
+      z:
+    2:
+      x:
+      y:
+      z:
+    3:
+      x:
+      y:
+      z:
+  death:
+    1:
+      x:
+      y:
+      z:
+    2:
+      x:
+      y:
+      z:
+    3:
+      x:
+      y:
+      z:
+  ratio:
+    1:
+      x:
+      y:
+      z:
+    2:
+      x:
+      y:
+      z:
+    3:
+      x:
+      y:
+      z:

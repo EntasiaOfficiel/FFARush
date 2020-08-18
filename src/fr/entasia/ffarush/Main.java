@@ -1,11 +1,11 @@
 package fr.entasia.ffarush;
 
 
-import fr.entasia.apis.utils.ServerUtils;
 import fr.entasia.apis.nbt.ItemNBT;
 import fr.entasia.apis.nbt.NBTComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;
 import fr.entasia.apis.sql.SQLConnection;
+import fr.entasia.apis.utils.ServerUtils;
 import fr.entasia.errors.EntasiaException;
 import fr.entasia.ffarush.commands.FFARushCmd;
 import fr.entasia.ffarush.commands.FFARushPlCmd;

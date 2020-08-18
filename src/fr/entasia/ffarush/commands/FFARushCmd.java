@@ -18,10 +18,6 @@ public class FFARushCmd implements CommandExecutor {
 				FFAUtils.tpSpawnFFA(p, true);
 			}else if (arg[0].equalsIgnoreCase("start")) {
 				FFAUtils.joinFFA(p);
-			}else if(arg[0].equalsIgnoreCase("particle")){
-				if(p.getDisplayName().equalsIgnoreCase("Stargeyt") || p.getDisplayName().equalsIgnoreCase("iTrooz_")){
-					ParticleInv.deathParticleOpenMenu(p);
-				}
 			}else{
 				p.sendMessage("§cCet argument est inccorect");
 			}

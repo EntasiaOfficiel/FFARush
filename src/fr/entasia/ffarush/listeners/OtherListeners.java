@@ -48,7 +48,6 @@ public class OtherListeners implements Listener {
 					int a=0;
 					for(byte i : rs.getBytes(5)){
 						a=(a<<8)+i;
-//						System.out.println(Integer.toBinaryString(a));
 					}
 					for(int i=0;i<ffp.inv.length;i++){
 						ffp.inv[i] = (byte) ((15<<i*4 & a)>>i*4); // 15 = 1111 , on récupère les bits 4 par 4
@@ -160,6 +159,9 @@ public class OtherListeners implements Listener {
 					TNTPrimed tnt = (TNTPrimed)e.getRightClicked();
 					tnt.setFuseTicks(9);
 				}
+			}
+			if(RegionManager.getRegionsAtLocation(e.getPlayer().getLocation()).contains(FFAUtils.reg_spawn)){ // au spawn
+				e.setCancelled(true);
 			}
 		}
 	}

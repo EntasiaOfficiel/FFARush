@@ -2,7 +2,6 @@ package fr.entasia.ffarush.deathParticle;
 
 import fr.entasia.apis.menus.MenuClickEvent;
 import fr.entasia.apis.menus.MenuCreator;
-import fr.entasia.cosmetiques.Main;
 import fr.entasia.cosmetiques.utils.CosmAPI;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
@@ -15,8 +14,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
@@ -63,7 +60,8 @@ public class ParticleInv {
         }
     };
 
-    public static void deathParticleOpenMenu(Player p){
+    public static void deathParticleOpenMenu(FFAPlayer cp){
+
         int cosm = 0;
         for(DeathParticle c : DeathParticle.values()){
             cosm++;
@@ -74,16 +72,12 @@ public class ParticleInv {
         }
         Inventory inv = deathParticle.createInv(slot/9,"§7Menu particule de mort");
         int nextSlot = 1;
+        Player p =cp.p;
         for(DeathParticle c : DeathParticle.values()){
             ItemStack item = c.itemStack.clone();
             ItemMeta meta = item.getItemMeta();
             ArrayList<String> lore = new ArrayList<>(Collections.singletonList(c.description));
-            FFAPlayer cp = FFAUtils.playerCache.get(p.getUniqueId());
-            if(cp==null){
-                p.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");
-                p.closeInventory();
-                return;
-            }
+
 
             if(cp.deathParticle!=null && cp.deathParticle.equals(c)){
                 lore.add("§6Cette particule de mort est déjà activée");
@@ -159,16 +153,8 @@ public class ParticleInv {
                 MoneyUtils.removeMoney(uuid, c.price);
                 e.player.sendMessage("§2Vous avez acheté la particule de mort "+c.nom);
                 e.player.closeInventory();
-                Main.sql.checkConnect();
-                PreparedStatement ps;
-                try {
-                    ps = Main.sql.connection.prepareStatement("INSERT INTO particles(uuid,id) VALUES (?,?)");
-                    ps.setInt(2, c.id);
-                    ps.setString(1, e.player.getUniqueId().toString());
-                    ps.execute();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                CosmAPI.unlockParticle(c.id,e.player.getUniqueId());
+
                 FFAPlayer cp = FFAUtils.playerCache.get(e.player.getUniqueId());
                 if(cp==null){
                     e.player.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");

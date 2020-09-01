@@ -31,6 +31,7 @@ public class ParticleInv {
                         if(ffp==null){
                             e.player.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");
                             e.player.closeInventory();
+                            return;
                         }
                         ffp.deathParticle = c;
                         e.player.closeInventory();

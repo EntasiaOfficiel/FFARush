@@ -2,7 +2,7 @@ package fr.entasia.ffarush.deathParticle;
 
 import fr.entasia.apis.menus.MenuClickEvent;
 import fr.entasia.apis.menus.MenuCreator;
-import fr.entasia.cosmetiques.utils.CosmAPI;
+import fr.entasia.cosmetics.utils.CosmAPI;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
 import fr.entasia.ffarush.utils.FFAPlayer;

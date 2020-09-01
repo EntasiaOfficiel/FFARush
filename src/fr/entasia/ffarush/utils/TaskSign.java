@@ -15,16 +15,16 @@ import java.sql.SQLException;
 public class TaskSign extends BukkitRunnable {
     @Override
     public void run() {
-        Main.sqlConnection.checkConnect();
+        Main.sql.checkConnect();
 
 
         ConfigurationSection csKill = Main.main.getConfig().getConfigurationSection("hallofFame.kill");
         ConfigurationSection csDeath = Main.main.getConfig().getConfigurationSection("hallofFame.death");
         ConfigurationSection csRatio = Main.main.getConfig().getConfigurationSection("hallofFame.ratio");
         try {
-            PreparedStatement ps= Main.sqlConnection.connection.prepareStatement("SELECT global.name, entagames.ffa_kills FROM global INNER JOIN entagames ON global.uuid = entagames.uuid ORDER BY entagames.ffa_kills DESC LIMIT 3");
-            PreparedStatement ps2= Main.sqlConnection.connection.prepareStatement("SELECT global.name, entagames.ffa_deaths FROM global INNER JOIN entagames ON global.uuid = entagames.uuid ORDER BY entagames.ffa_deaths DESC LIMIT 3");
-            PreparedStatement ps3= Main.sqlConnection.connection.prepareStatement("SELECT global.name, entagames.ffa_kills/entagames.ffa_deaths FROM global INNER JOIN entagames ON global.uuid = entagames.uuid ORDER BY entagames.ffa_kills/entagames.ffa_deaths DESC LIMIT 3");
+            PreparedStatement ps= Main.sql.connection.prepareStatement("SELECT global.name, entagames.ffa_kills FROM global INNER JOIN entagames ON global.uuid = entagames.uuid ORDER BY entagames.ffa_kills DESC LIMIT 3");
+            PreparedStatement ps2= Main.sql.connection.prepareStatement("SELECT global.name, entagames.ffa_deaths FROM global INNER JOIN entagames ON global.uuid = entagames.uuid ORDER BY entagames.ffa_deaths DESC LIMIT 3");
+            PreparedStatement ps3= Main.sql.connection.prepareStatement("SELECT global.name, entagames.ffa_kills/entagames.ffa_deaths FROM global INNER JOIN entagames ON global.uuid = entagames.uuid ORDER BY entagames.ffa_kills/entagames.ffa_deaths DESC LIMIT 3");
             ResultSet rs = ps.executeQuery();
             int i=1;
             while(rs.next()){

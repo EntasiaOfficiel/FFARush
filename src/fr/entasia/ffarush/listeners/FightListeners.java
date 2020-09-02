@@ -26,12 +26,11 @@ public class FightListeners implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-			if(e.getCause()==EntityDamageEvent.DamageCause.ENTITY_ATTACK)return;
 			if(e.getCause()==EntityDamageEvent.DamageCause.PROJECTILE)e.setCancelled(true);
 			else if(e.getCause()==EntityDamageEvent.DamageCause.BLOCK_EXPLOSION||e.getCause()==EntityDamageEvent.DamageCause.ENTITY_EXPLOSION||
 					e.getCause()== EntityDamageEvent.DamageCause.FALL){
 				e.setDamage(0);
-			}else{
+			}else if(!(e instanceof EntityDamageByEntityEvent)){
 				Player p = (Player)e.getEntity();
 				if(e.getFinalDamage()<p.getHealth())return;
 				e.setCancelled(true);

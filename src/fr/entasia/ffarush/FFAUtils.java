@@ -86,7 +86,7 @@ public class FFAUtils {
 			}
 			p.getInventory().setItem(9, new ItemStack(Material.ARROW, 2));
 
-			ffp.sb.softSet();
+			ffp.sb.set();
 		}
 	}
 

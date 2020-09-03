@@ -18,15 +18,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class OtherListeners implements Listener {
 
@@ -108,10 +105,10 @@ public class OtherListeners implements Listener {
 	public static void blockPlace(BlockPlaceEvent e) {
 		if(e.getPlayer().getWorld()!=FFAUtils.world)return;
 
-		if(RegionManager.getRegionsAtLocation(e.getBlockPlaced().getLocation()).contains(FFAUtils.reg_arena)) { // en pvp
+		if(RegionManager.getRegionsAt(e.getBlockPlaced().getLocation()).contains(FFAUtils.reg_arena)) { // en pvp
 			boolean ok = false;
 			for(ItemStack i : FFAUtils.ffablocks){
-				if(i.getType()==e.getBlockPlaced().getType()&&i.getDurability()==e.getBlockPlaced().getData()){
+				if(i.getType()==e.getBlockPlaced().getType()){
 					ok = true;
 					break;
 				}
@@ -134,7 +131,7 @@ public class OtherListeners implements Listener {
 	public static void blockBreak(BlockBreakEvent e) {
 		if(e.getPlayer().getWorld()!=FFAUtils.world)return;
 
-		if(RegionManager.getRegionsAtLocation(e.getBlock().getLocation()).contains(FFAUtils.reg_arena)) { // en pvp
+		if(RegionManager.getRegionsAt(e.getBlock().getLocation()).contains(FFAUtils.reg_arena)) { // en pvp
 			if(FFAUtils.canbeBroken(e.getBlock())){
 				e.setCancelled(false);
 				if(e.getBlock().getType()==Material.TNT){
@@ -152,14 +149,14 @@ public class OtherListeners implements Listener {
 
 		if(ItemClick(e.getPlayer().getInventory().getItemInMainHand(), e.getPlayer()))e.setCancelled(true);
 		else{
-			if(RegionManager.getRegionsAtLocation(e.getPlayer().getLocation()).contains(FFAUtils.reg_arena)){ // en pvp
+			if(RegionManager.getRegionsAt(e.getPlayer().getLocation()).contains(FFAUtils.reg_arena)){ // en pvp
 				if(e.getPlayer().getInventory().getItemInMainHand().getType()== Material.FLINT_AND_STEEL&&
 						e.getRightClicked() instanceof TNTPrimed){
 					TNTPrimed tnt = (TNTPrimed)e.getRightClicked();
 					tnt.setFuseTicks(9);
 				}
 			}
-			if(RegionManager.getRegionsAtLocation(e.getPlayer().getLocation()).contains(FFAUtils.reg_spawn)){ // au spawn
+			if(RegionManager.getRegionsAt(e.getPlayer().getLocation()).contains(FFAUtils.reg_spawn)){ // au spawn
 				e.setCancelled(true);
 			}
 		}
@@ -180,98 +177,6 @@ public class OtherListeners implements Listener {
 			return true;
 		}
 		return false;
-	}
-
-	@EventHandler
-	public static void onInvClick2(InventoryClickEvent e) {
-		if(!(e.getWhoClicked() instanceof Player)||e.getWhoClicked().getWorld()!=FFAUtils.world||
-				e.getClickedInventory()==null||e.getCurrentItem()==null)return;
-
-		if(e.getInventory().getName().equalsIgnoreCase("§7Modifier l'inventaire de départ")) {
-			if (e.getClickedInventory() instanceof PlayerInventory) {
-				e.setCancelled(true);
-			} else if (e.getClick() != ClickType.LEFT || e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE)
-				e.setCancelled(true);
-			else if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()){
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cRetour"))
-					InvsManager.optionsOpen((Player) e.getWhoClicked());
-				else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cRemettre par défaut")){
-					for(int i=0;i<10;i++){
-						e.getInventory().setItem(i, null);
-					}
-					for(int i=0;i<FFAUtils.defaultInv.length;i++){
-						if(FFAUtils.defaultInv[i]==40)e.getInventory().setItem(9, FFAUtils.ffaitems[i]);
-						else e.getInventory().setItem(FFAUtils.defaultInv[i], FFAUtils.ffaitems[i]);
-					}
-				}else return;
-				e.setCancelled(true);
-			}
-		}
-	}
-
-	@EventHandler
-	public static void onInvClick(InventoryClickEvent e) {
-		if(!(e.getWhoClicked() instanceof Player)||e.getWhoClicked().getWorld()!=FFAUtils.world||e.getClickedInventory()==null)return;
-
-		if(e.getClickedInventory().getType() == InventoryType.CHEST) {
-			if(e.getAction() == InventoryAction.NOTHING||e.getCurrentItem() == null||e.getCurrentItem().getType() == Material.AIR)return;
-			if(e.getClickedInventory().getName().equalsIgnoreCase("§9Options")){
-				InvsManager.optionsClick((Player)e.getWhoClicked(), e.getCurrentItem());
-			}else if(e.getClickedInventory().getName().equalsIgnoreCase("§3Choix du block")) {
-				InvsManager.blockClick(FFAUtils.playerCache.get(e.getWhoClicked().getUniqueId()), e.getCurrentItem());
-			}else return;
-			e.setCancelled(true);
-		}else{
-			if(e.getWhoClicked().getGameMode()==GameMode.CREATIVE&&e.getSlot()<=39&&e.getSlot()>=36)e.setCancelled(true);
-		}
-	}
-
-	@EventHandler
-	public static void invClose(InventoryCloseEvent e) {
-		if(e.getPlayer().getWorld()!=FFAUtils.world||!e.getInventory().getName().equals("§7Modifier l'inventaire de départ"))return;
-		FFAPlayer ffp = FFAUtils.playerCache.get(e.getPlayer().getUniqueId());
-		if(ffp==null)return;
-
-		byte[] a = new byte[FFAUtils.ffaitems.length];
-
-		byte v;
-		for(byte i=0;i<10;i++){
-			if(e.getInventory().getItem(i)==null)continue;
-			if(i==9)v=40;
-			else v = i;
-			switch(e.getInventory().getItem(i).getType()){
-				case DIAMOND_SWORD:
-					a[0] = v;
-					break;
-				case IRON_PICKAXE:
-					a[1] = v;
-					break;
-				case BOW:
-					a[2] = v;
-					break;
-				case GOLDEN_APPLE:
-					a[3] = v;
-					break;
-				case TNT:
-					a[4] = v;
-					break;
-				case FLINT_AND_STEEL:
-					a[5] = v;
-					break;
-				default:
-					Main.warn("Item invalide detectée dans la modification d'inventaire ! "+e.getInventory().getItem(i).getType());
-			}
-//			for(int j=0;j<4;j++){
-//				if(((i >> j) & 1) == 0){
-//					bs.clear(ran*4+j);
-//				}else{
-//					bs.set(ran*4+j);
-//				}
-//			}
-		}
-		if(Arrays.equals(FFAUtils.defaultInv, a)) ffp.inv = null;
-		else ffp.inv = a;
-		ffp.p.sendMessage("§6Nouvelle configuration de l'inventaire sauvegardée !");
 	}
 
 	@EventHandler

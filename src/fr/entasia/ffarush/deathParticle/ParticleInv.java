@@ -62,7 +62,7 @@ public class ParticleInv {
         }
     };
 
-    public static void deathParticleOpenMenu(FFAPlayer cp){
+    public static void deathParticlesOpen(FFAPlayer cp){
 
         int cosm = DeathParticle.values().length;
 

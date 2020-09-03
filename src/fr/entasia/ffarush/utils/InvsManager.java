@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 
 public class InvsManager {
@@ -35,7 +34,7 @@ public class InvsManager {
 
 		LocalDateTime now = LocalDateTime.now();
 		if(now.getMonthValue() >= 8 || now.getYear()>=2021 || p.getDisplayName().equalsIgnoreCase("Stargeyt") || p.getDisplayName().equalsIgnoreCase("iTrooz_")){
-			item = new ItemStack(Material.FIREWORK);
+			item = new ItemStack(Material.FIREWORK_ROCKET);
 			meta = item.getItemMeta();
 			meta.setDisplayName("§7Particules de mort");
 			item.setItemMeta(meta);
@@ -57,7 +56,7 @@ public class InvsManager {
 				case IRON_CHESTPLATE:
 					customInvOpen(FFAUtils.playerCache.get(p.getUniqueId()));
 					break;
-				case FIREWORK:
+				case FIREWORK_ROCKET:
 					ParticleInv.deathParticleOpenMenu(FFAUtils.playerCache.get(p.getUniqueId()));
 					break;
 				default:
@@ -74,7 +73,7 @@ public class InvsManager {
 
 		byte index = ffp.block;
 		int[] places = new int[]{10, 12, 14, 16,  28, 30, 32, 34};
-		ItemStack tite = new ItemStack(Material.BOOK_AND_QUILL);
+		ItemStack tite = new ItemStack(Material.WRITABLE_BOOK);
 		ItemMeta meta = tite.getItemMeta();
 		meta.setDisplayName("§cRetour");
 		tite.setItemMeta(meta);
@@ -125,7 +124,7 @@ public class InvsManager {
 				case PURPUR_BLOCK:
 					id = 3;
 					break;
-				case END_BRICKS:
+				case END_STONE_BRICKS:
 					id = 4;
 					break;
 				case BRICK:
@@ -163,12 +162,12 @@ public class InvsManager {
 		Inventory inv = Bukkit.createInventory(null, 18, "§7Modifier l'inventaire de départ");
 
 
-		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7);
+		ItemStack item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
 		for(int i=10;i<17;i++){
 			inv.setItem(i, item);
 		}
 
-		item = new ItemStack(Material.BOOK_AND_QUILL);
+		item = new ItemStack(Material.WRITABLE_BOOK);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§cRetour");
 		item.setItemMeta(meta);

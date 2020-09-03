@@ -3,7 +3,6 @@ package fr.entasia.ffarush.utils;
 import fr.entasia.ffarush.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.scheduler.BukkitRunnable;

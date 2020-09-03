@@ -1,11 +1,9 @@
 package fr.entasia.ffarush.listeners;
 
-import fr.entasia.apis.other.ChatComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
 import fr.entasia.ffarush.utils.FFAPlayer;
-import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -22,7 +20,7 @@ public class FightListeners implements Listener {
 	public static void damage(EntityDamageEvent e) {
 		if(e.getEntity().getWorld()!=FFAUtils.world)return;
 		if(e.getEntity() instanceof Player){
-			if(RegionManager.getRegionsAtLocation(e.getEntity().getLocation()).contains(FFAUtils.reg_spawn)) {
+			if(RegionManager.getRegionsAt(e.getEntity().getLocation()).contains(FFAUtils.reg_spawn)) {
 				e.setCancelled(true);
 				return;
 			}
@@ -65,7 +63,7 @@ public class FightListeners implements Listener {
 				}
 			}
 			if(e.getFinalDamage()<p.getHealth()){
-				if(dam!=null) dam.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+(int)(p.getHealth()-e.getFinalDamage())+"§6/§420 §c❤"));
+				if(dam!=null) dam.sendActionBar("§4"+(int)(p.getHealth()-e.getFinalDamage())+"§6/§420 §c❤");
 
 			}else{
 				e.setCancelled(true);
@@ -85,7 +83,7 @@ public class FightListeners implements Listener {
 		if(ffp.deathParticle == null){
 			ffp.p.getWorld().spawnParticle(Particle.LAVA, ffp.p.getLocation(), 50, 0.4, 0.7, 0.4, 0.08);
 		} else{
-			ffp.deathParticle.update(ffp.p.getLocation(),ffp);
+			ffp.deathParticle.update(ffp.p.getLocation());
 		}
 
 		FFAUtils.tpSpawnFFA(ffp.p, false);
@@ -103,9 +101,9 @@ public class FightListeners implements Listener {
 				damager.sb.refreshKs();
 				damager.sb.refreshMoney();
 				ffp.p.sendMessage("§7Tu as été tué par §c"+damager.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
-				ffp.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§cTué par "+damager.p.getDisplayName()+" !"));
+				ffp.p.sendActionBar("§cTué par "+damager.p.getDisplayName()+" !");
 				damager.p.sendMessage("§7Tu as tué §c"+ffp.p.getName()+" ! §9( §4"+(int)damager.p.getHealth()+"§6/§420 §c❤ restants §9)");
-				damager.p.sendMessage(ChatMessageType.ACTION_BAR, ChatComponent.create("§4"+ffp.p.getDisplayName()+" §ctué !"));
+				damager.p.sendActionBar("§4"+ffp.p.getDisplayName()+" §ctué !");
 				damager.p.setHealth(20);
 
 				ffp.lastDamage = 0;

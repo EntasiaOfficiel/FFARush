@@ -26,6 +26,7 @@ public class Main extends JavaPlugin {
 
 	public static Main main;
 	public static SQLConnection sql;
+	public static boolean dev;
 
 	public static void warn(String msg){
 		new EntasiaException(msg).printStackTrace();
@@ -35,6 +36,7 @@ public class Main extends JavaPlugin {
 
 	public static void loadConfig() {
 		FFAUtils.world = Bukkit.getWorld(main.getConfig().getString("world"));
+		dev = main.getConfig().getBoolean("dev", false);
 		int j=0;
 		for(String i : main.getConfig().getStringList("ffalocs")){
 			String[] a = i.split(";");
@@ -58,20 +60,21 @@ public class Main extends JavaPlugin {
 			saveDefaultConfig();
 			loadConfig();
 
-			if(getConfig().getBoolean("dev", false)) sql = new SQLConnection("root");
-			else sql = new SQLConnection("entagames", "playerdata");
+			if(getConfig().getBoolean("dev", false)) sql = new SQLConnection(dev).mariadb("root");
+			else sql = new SQLConnection(dev).mariadb("entagames", "playerdata");
 
 
-			Bukkit.getConsoleSender().sendMessage("Plugin activé !");
 			getServer().getPluginManager().registerEvents(new OtherListeners(), this);
 			getServer().getPluginManager().registerEvents(new FightListeners(), this);
 			getServer().getPluginManager().registerEvents(new PowerUpsListeners(), this);
+
 			getCommand("ffarushpl").setExecutor(new FFARushPlCmd());
 			getCommand("ffarush").setExecutor(new FFARushCmd());
+
 			new Task5m().runTaskTimerAsynchronously(this, 1150, 6000); // 5 minutes = 300 secondes = 6000 ticks
 
-			FFAUtils.reg_arena = RegionManager.getRegionByName("ffa_arena");
-			FFAUtils.reg_spawn = RegionManager.getRegionByName("ffa_spawn");
+			FFAUtils.reg_arena = RegionManager.getRegion("ffa_arena");
+			FFAUtils.reg_spawn = RegionManager.getRegion("ffa_spawn");
 			if(FFAUtils.reg_arena==null)throw new Exception("Arena region not found");
 			if(FFAUtils.reg_spawn==null)throw new Exception("Spawn region not found");
 
@@ -81,14 +84,14 @@ public class Main extends JavaPlugin {
 			FFAUtils.ffaitems[1] = new ItemStack(Material.IRON_PICKAXE);
 			ItemMeta meta = FFAUtils.ffaitems[1].getItemMeta();
 			meta.addEnchant(Enchantment.DIG_SPEED, 4, true);
-			meta.spigot().setUnbreakable(true);
+			meta.setUnbreakable(true);
 			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 			FFAUtils.ffaitems[1].setItemMeta(meta);
 
 			FFAUtils.ffaitems[2] = new ItemStack(Material.BOW);
 			meta = FFAUtils.ffaitems[2].getItemMeta();
 			meta.setDisplayName("§7BlockBow");
-			meta.spigot().setUnbreakable(true);
+			meta.setUnbreakable(true);
 			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 			FFAUtils.ffaitems[2].setItemMeta(meta);
 
@@ -103,7 +106,7 @@ public class Main extends JavaPlugin {
 			FFAUtils.ffaitems[5] = new ItemStack(Material.FLINT_AND_STEEL);
 			meta = FFAUtils.ffaitems[5].getItemMeta();
 			meta.addEnchant(Enchantment.LURE, 1, true);
-			meta.spigot().setUnbreakable(true);
+			meta.setUnbreakable(true);
 			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE);
 			FFAUtils.ffaitems[5].setItemMeta(meta);
 
@@ -118,7 +121,7 @@ public class Main extends JavaPlugin {
 			meta = FFAUtils.ffaarmor[0].getItemMeta();
 			meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
 			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-			meta.spigot().setUnbreakable(true);
+			meta.setUnbreakable(true);
 			FFAUtils.ffaarmor[0].setItemMeta(meta);
 
 			FFAUtils.ffaarmor[2] = new ItemStack(Material.LEATHER_LEGGINGS);
@@ -131,15 +134,15 @@ public class Main extends JavaPlugin {
 			meta = FFAUtils.ffaarmor[1].getItemMeta();
 			meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
 			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-			meta.spigot().setUnbreakable(true);
+			meta.setUnbreakable(true);
 			FFAUtils.ffaarmor[1].setItemMeta(meta);
 
 			FFAUtils.ffablocks[0] = new ItemStack(Material.SANDSTONE, 64);
-			FFAUtils.ffablocks[1] = new ItemStack(Material.SANDSTONE, 64, (short) 2);
+			FFAUtils.ffablocks[1] = new ItemStack(Material.SMOOTH_SANDSTONE, 64);
 			FFAUtils.ffablocks[2] = new ItemStack(Material.QUARTZ_BLOCK, 64);
 			FFAUtils.ffablocks[3] = new ItemStack(Material.NETHER_BRICK, 64);
 			FFAUtils.ffablocks[4] = new ItemStack(Material.PURPUR_BLOCK, 64);
-			FFAUtils.ffablocks[5] = new ItemStack(Material.END_BRICKS, 64);
+			FFAUtils.ffablocks[5] = new ItemStack(Material.END_STONE_BRICKS, 64);
 			FFAUtils.ffablocks[6] = new ItemStack(Material.BRICK, 64);
 			FFAUtils.ffablocks[7] = new ItemStack(Material.PRISMARINE, 64);
 
@@ -149,6 +152,8 @@ public class Main extends JavaPlugin {
 				meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 				FFAUtils.ffablocks[i].setItemMeta(meta);
 			}
+
+			getLogger().info("Plugin activé !");
 
 		}catch(Throwable e){
 			e.printStackTrace();

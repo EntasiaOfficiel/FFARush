@@ -1,89 +1,58 @@
 package fr.entasia.ffarush.utils;
 
+import fr.entasia.apis.other.ScoreBoard;
 import fr.entasia.egtools.utils.MoneyUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
-public class SBManager {
+public class SBManager extends ScoreBoard {
 
 	public FFAPlayer ffp;
-	public Scoreboard scoreboard;
-	public Objective objective;
-	public String ratio = "";
-	public String ks = "";
-	public String kills = "";
-	public String deaths = "";
-	public String money = "";
 
 	public SBManager(FFAPlayer ffp){
+		super(ffp.p, "ffa", "§cFFA§6Rush");
 		this.ffp = ffp;
-		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		objective = scoreboard.registerNewObjective("ffa", "dummy");
-	}
-	public void softSet(){
-		if(ffp.p.getScoreboard()!=scoreboard)refresh();
-	}
-
-	public void clear(){
-		scoreboard.getEntries().forEach(a -> scoreboard.resetScores(a));
 	}
 
 	public void refresh(){
-		ffp.p.setScoreboard(scoreboard);
-		clear();
-		objective.setDisplayName("§cFFA§6Rush");
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.getScore("§b§m-----------").setScore(50);
+		set();
+		staticLine(19, "§b§m-----------");
 		refreshMoney();
-		objective.getScore(" ").setScore(47);
+		staticLine(17," ");
 		refreshKills();
 		refreshDeaths();
 		refreshRatio();
-		objective.getScore("  ").setScore(43);
+		staticLine(13, "  ");
 		refreshKs();
-		objective.getScore("§b§m----------- ").setScore(41);
-		objective.getScore("§bplay.enta§7sia.fr").setScore(10);
+		staticLine(11, "§b§m----------- ");
+		staticLine(10, "§bplay.enta§7sia.fr");
 	}
 
 	public void refreshMoney(){
-		scoreboard.resetScores(money);
 		int a = MoneyUtils.getMoney(ffp.p.getUniqueId());
-		objective.getScore("§7Monnaie : §b"+a).setScore(48);
-		money = "§7Monnaie : §b"+a;
+		changeLine(48,"§7Monnaie : §b"+a);
 	}
 
 	public void refreshRatio(){
-		scoreboard.resetScores(ratio);
+		String ratio;
 		if(ffp.deaths==0) ratio = "§7Ratio : §bNon.";
 		else{
 			float r = Math.round((float)ffp.kills/ffp.deaths*100)/100f;
 			ratio = Float.toString(r);
-			if(r%1==0){
-				ratio = ratio.substring(0, ratio.length()-2);
-			}
+			if(r%1==0) ratio = ratio.substring(0, ratio.length()-2);
 			ratio = "§7Ratio : §b"+ratio;
 		}
-		objective.getScore(ratio).setScore(44);
+		changeLine(14, ratio);
 	}
 
 	public void refreshKs(){
-		scoreboard.resetScores(ks);
-		objective.getScore("§7KillStreak : §b"+ffp.ks).setScore(42);
-		ks = "§7KillStreak : §b"+ffp.ks;
+		changeLine(12, "§7KillStreak : §b"+ffp.ks);
 	}
 
 	public void refreshKills(){
-		scoreboard.resetScores(kills);
-		objective.getScore("§7Kills : §b"+ffp.kills).setScore(45);
-		kills = "§7Kills : §b"+ffp.kills;
+		changeLine(45, "§7Kills : §b"+ffp.kills);
 	}
 
 	public void refreshDeaths(){
-		scoreboard.resetScores(deaths);
-		objective.getScore("§7Morts : §b"+ffp.deaths).setScore(46);
-		deaths = "§7Morts : §b"+ffp.deaths;
+		changeLine(46,"§7Morts : §b"+ffp.deaths);
 	}
 
 }

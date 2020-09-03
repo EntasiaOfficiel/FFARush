@@ -2,6 +2,7 @@ package fr.entasia.ffarush.deathParticle;
 
 import fr.entasia.apis.menus.MenuClickEvent;
 import fr.entasia.apis.menus.MenuCreator;
+import fr.entasia.apis.other.ItemBuilder;
 import fr.entasia.cosmetics.utils.CosmAPI;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
@@ -63,10 +64,8 @@ public class ParticleInv {
 
     public static void deathParticleOpenMenu(FFAPlayer cp){
 
-        int cosm = 0;
-        for(DeathParticle c : DeathParticle.values()){
-            cosm++;
-        }
+        int cosm = DeathParticle.values().length;
+
         int slot = cosm*2;
         while( slot%9!=0){
             slot++;
@@ -115,23 +114,14 @@ public class ParticleInv {
     public static void openParticleBuyMenu(Player p, DeathParticle c){
         Inventory inv = buyParticleMenu.createInv(2,"§7Achat d'une particule de mort", c);
 
-        ItemStack cosmetique=c.itemStack;
+        ItemStack cosmetique = c.itemStack;
         inv.setItem(4,cosmetique);
-        ItemStack achat= new ItemStack(Material.STAINED_GLASS_PANE,1, (byte) 5);
-        ItemMeta achatMeta= achat.getItemMeta();
-        achatMeta.setDisplayName("§2Acheter");
-        achatMeta.setLore(Collections.singletonList("§2Cout : "+c.price +" coins"));
-        achat.setItemMeta(achatMeta);
 
+        ItemBuilder builder = new ItemBuilder(Material.LIME_STAINED_GLASS_PANE).name("§2Acheter").lore("§2Cout : "+c.price +" coins");
+        inv.setItem(11, builder.build());
 
-        ItemStack refuser= new ItemStack(Material.STAINED_GLASS_PANE,1, (byte) 14);
-        ItemMeta refuserMeta= refuser.getItemMeta();
-        refuserMeta.setDisplayName("§cAnnuler");
-        refuserMeta.setLore(Collections.singletonList("§cAnnuler l'achat"));
-        refuser.setItemMeta(refuserMeta);
-
-        inv.setItem(11,achat);
-        inv.setItem(15,refuser);
+        builder = new ItemBuilder(Material.RED_STAINED_GLASS_PANE).name("§cAnnuler").lore("§cAnnuler l'achat");
+        inv.setItem(11, builder.build());
 
         p.openInventory(inv);
     }

@@ -108,7 +108,7 @@ public class FFAUtils {
 
 			p.getInventory().setHeldItemSlot(4);
 
-			ItemStack item = new ItemStack(Material.COMMAND);
+			ItemStack item = new ItemStack(Material.COMMAND_BLOCK);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§9Options");
 			item.setItemMeta(meta);
@@ -120,7 +120,7 @@ public class FFAUtils {
 			item.setItemMeta(meta);
 			p.getInventory().setItem(4, item);
 
-			item = new ItemStack(Material.BED);
+			item = new ItemStack(Material.ORANGE_BED);
 			meta = item.getItemMeta();
 			meta.setDisplayName("§cRetour au spawn EntaGames");
 			item.setItemMeta(meta);
@@ -185,18 +185,17 @@ public class FFAUtils {
 		return false;
 	}
 
-	public static boolean sendMessage(String msg) {
+	public static void sendMessage(String msg) {
 		for(Player p : world.getPlayers()){
 			if(p.isOnline())p.sendMessage(msg);
 		}
-		return false;
 	}
 
 	public static boolean canbeBroken(Block block) {
 		for(ItemStack i : FFAUtils.ffablocks){
-			if(block.getType()==i.getType()&&block.getData()==i.getDurability())return true;
+			if(block.getType()==i.getType())return true;
 		}
 		return (block.getType()==Material.TNT||block.getType()==Material.FIRE||
-				(block.getType()==Material.STAINED_CLAY&&block.getData()==14));
+				(block.getType()==Material.RED_TERRACOTTA));
 	}
 }

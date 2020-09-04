@@ -1,11 +1,13 @@
 package fr.entasia.ffarush;
 
+import com.boydti.fawe.FaweAPI;
 import com.boydti.fawe.FaweCache;
 import com.boydti.fawe.util.EditSessionBuilder;
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.blocks.BaseBlock;
+import com.sk89q.worldedit.math.BlockVector3Imp;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.world.block.BaseBlock;
+import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.entasia.apis.regionManager.api.Region;
 import fr.entasia.egtools.Utils;
 import fr.entasia.ffarush.utils.FFAPlayer;
@@ -19,11 +21,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.BlockVector;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 
 public class FFAUtils {
 
@@ -129,30 +130,39 @@ public class FFAUtils {
 		}
 	}
 
+	public static HashSet<BaseBlock> blocks = new HashSet<>();
+	public static BaseBlock redBlock = new BaseBlock(BlockTypes.RED_TERRACOTTA.getDefaultState());
+	public static BaseBlock airBlock = new BaseBlock(BlockTypes.AIR.getDefaultState());
+	public static com.sk89q.worldedit.regions.Region reg;
+
+	static{
+		blocks.add(new BaseBlock(BlockTypes.TNT.getDefaultState())); // tnt
+		blocks.add(new BaseBlock(BlockTypes.SANDSTONE.getDefaultState())); // sandstone
+		blocks.add(new BaseBlock(BlockTypes.SMOOTH_SANDSTONE.getDefaultState())); // sandstone 2
+		blocks.add(new BaseBlock(BlockTypes.QUARTZ_BLOCK.getDefaultState())); // quartz
+		blocks.add(new BaseBlock(BlockTypes.NETHER_BRICKS.getDefaultState())); // nether bricks
+		blocks.add(new BaseBlock(BlockTypes.PURPUR_BLOCK.getDefaultState())); // purpur
+		blocks.add(new BaseBlock(BlockTypes.END_STONE_BRICKS.getDefaultState())); // end bricks
+		blocks.add(new BaseBlock(BlockTypes.BRICKS.getDefaultState())); // bricks
+		blocks.add(new BaseBlock(BlockTypes.PRISMARINE.getDefaultState())); // bricks
+
+		reg = new CuboidRegion(
+				BlockVector3Imp.at(reg_arena.getLowerBound().x, reg_arena.getLowerBound().y, reg_arena.getLowerBound().z),
+				BlockVector3Imp.at(reg_arena.getUpperBound().x, reg_arena.getUpperBound().y, reg_arena.getUpperBound().z)
+		);
+	}
+
 	public static void clearArena() {
-		EditSession editSession = new EditSessionBuilder(world.getName()).fastmode(true).build();
-		HashSet<BaseBlock> blocks = new HashSet<>();
-		blocks.add(FaweCache.getBlock(46, 0)); // tnt
-		blocks.add(FaweCache.getBlock(24, 0)); // sandstone
-		blocks.add(FaweCache.getBlock(24, 2)); // sandstone 2
-		blocks.add(FaweCache.getBlock(155, 0)); // quartz
-		blocks.add(FaweCache.getBlock(112, 0)); // nether bricks
-		blocks.add(FaweCache.getBlock(201, 0)); // purpur
-		blocks.add(FaweCache.getBlock(206, 0)); // end bricks
-		blocks.add(FaweCache.getBlock(45, 0)); // bricks
-		blocks.add(FaweCache.getBlock(168, 0)); // bricks
-		com.sk89q.worldedit.regions.Region r = new CuboidRegion(
-				new Vector(reg_arena.getLowerBound().x, reg_arena.getLowerBound().y, reg_arena.getLowerBound().z),
-				new Vector(reg_arena.getUpperBound().x, reg_arena.getUpperBound().y, reg_arena.getUpperBound().z));
-		editSession.replaceBlocks(r, blocks, FaweCache.getBlock(159, 14));
+		EditSession editSession = new EditSessionBuilder(FaweAPI.getWorld(world.getName())).fastmode(true).build();
+
+
+		editSession.replaceBlocks(reg, blocks, redBlock);
 		editSession.flushQueue();
 		FFAUtils.sendMessage("§6Les blocks rouges vont être supprimés dans 30 secondes !");
 
 		new BukkitRunnable() {
 			public void run() {
-				blocks.clear();
-				blocks.add(FaweCache.getBlock(159, 14));
-				editSession.replaceBlocks(r, blocks, FaweCache.getBlock(0, 0));
+				editSession.replaceBlocks(reg, Collections.singleton(redBlock), airBlock);
 				editSession.flushQueue();
 				FFAUtils.sendMessage("§6Les blocks rouges ont été supprimés !");
 			}

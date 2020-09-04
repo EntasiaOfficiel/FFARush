@@ -9,9 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Cosmetics" level="project" />
     <orderEntry type="library" name="EGTools" level="project" />
-    <orderEntry type="library" name="FAWE-legacy" level="project" />
     <orderEntry type="library" name="Libraries" level="project" />
-    <orderEntry type="library" name="WorldEdit" level="project" />
     <orderEntry type="library" name="paper-1.15.2" level="project" />
+    <orderEntry type="library" name="FAWE" level="project" />
   </component>
 </module>

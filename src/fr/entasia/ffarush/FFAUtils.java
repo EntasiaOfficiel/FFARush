@@ -1,15 +1,12 @@
 package fr.entasia.ffarush;
 
 import com.boydti.fawe.FaweAPI;
-import com.boydti.fawe.FaweCache;
 import com.boydti.fawe.util.EditSessionBuilder;
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.math.BlockVector3Imp;
-import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import fr.entasia.apis.regionManager.api.Region;
-import fr.entasia.egtools.Utils;
+import fr.entasia.apis.utils.PlayerUtils;
 import fr.entasia.ffarush.utils.FFAPlayer;
 import fr.entasia.ffarush.utils.SQLUtils;
 import org.bukkit.GameMode;
@@ -21,10 +18,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.BlockVector;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.UUID;
 
 public class FFAUtils {
 
@@ -49,17 +48,15 @@ public class FFAUtils {
 		if(ffp==null)p.sendMessage("§cTon profil FFARush est mal chargé ! Contacte un membre du staff");
 		else {
 			Location loc = null;
-			boolean no=false;
+			loops:
 			for(int i=0;i<50;i++){
 				loc = spawnsloc[(int) (Math.random() * 12)];
 				for (Player lp : world.getPlayers()){
 					if(lp.getLocation().distance(loc)<6){
-						no = true;
-						break;
+						continue loops;
 					}
 				}
-				if(no)no = false;
-				else break;
+				break;
 			}
 			p.teleport(loc);
 			p.getInventory().clear();
@@ -100,9 +97,7 @@ public class FFAUtils {
 				p.sendMessage("§6Tu as été téléporté au §cFFARush§6 !");
 			}
 
-//			Bukkit.broadcastMessage("DEBUG 1");
-			Utils.reset(p);
-//			Bukkit.broadcastMessage("DEBUG 3");
+			PlayerUtils.hardReset(p);
 			p.setGameMode(GameMode.SURVIVAL);
 
 			ffp.sb.refresh();

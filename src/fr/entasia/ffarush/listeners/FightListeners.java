@@ -32,7 +32,6 @@ public class FightListeners implements Listener {
 				Player p = (Player)e.getEntity();
 				if(e.getFinalDamage()<p.getHealth())return;
 				e.setCancelled(true);
-				p.sendMessage("§7Tu es mort !");
 				kill(p);
 			}
 		}else e.setCancelled(true);

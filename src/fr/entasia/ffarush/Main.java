@@ -47,6 +47,8 @@ public class Main extends JavaPlugin {
 			saveDefaultConfig();
 			loadConfig();
 
+			loadItems();
+
 			sql = new SQLConnection(dev).mariadb("entagames", "playerdata");
 
 

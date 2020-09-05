@@ -28,7 +28,15 @@ public class SBManager extends ScoreBoard {
 
 	public void refreshMoney(){
 		int a = MoneyUtils.getMoney(ffp.p.getUniqueId());
-		changeLine(48,"§7Monnaie : §b"+a);
+		changeLine(18, "§7Monnaie : §b"+a);
+	}
+
+	public void refreshKills(){
+		changeLine(16, "§7Kills : §b"+ffp.kills);
+	}
+
+	public void refreshDeaths(){
+		changeLine(15,"§7Morts : §b"+ffp.deaths);
 	}
 
 	public void refreshRatio(){
@@ -47,12 +55,6 @@ public class SBManager extends ScoreBoard {
 		changeLine(12, "§7KillStreak : §b"+ffp.ks);
 	}
 
-	public void refreshKills(){
-		changeLine(45, "§7Kills : §b"+ffp.kills);
-	}
 
-	public void refreshDeaths(){
-		changeLine(46,"§7Morts : §b"+ffp.deaths);
-	}
 
 }

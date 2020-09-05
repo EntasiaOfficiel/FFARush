@@ -145,11 +145,6 @@ public class FFAUtils {
 		blocks.add(new BaseBlock(BlockTypes.END_STONE_BRICKS.getDefaultState())); // end bricks
 		blocks.add(new BaseBlock(BlockTypes.BRICKS.getDefaultState())); // bricks
 		blocks.add(new BaseBlock(BlockTypes.PRISMARINE.getDefaultState())); // bricks
-
-		reg = new CuboidRegion(
-				BlockVector3Imp.at(reg_arena.getLowerBound().x, reg_arena.getLowerBound().y, reg_arena.getLowerBound().z),
-				BlockVector3Imp.at(reg_arena.getUpperBound().x, reg_arena.getUpperBound().y, reg_arena.getUpperBound().z)
-		);
 	}
 
 	public static void clearArena() {

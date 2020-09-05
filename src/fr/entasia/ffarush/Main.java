@@ -1,6 +1,8 @@
 package fr.entasia.ffarush;
 
 
+import com.sk89q.worldedit.math.BlockVector3Imp;
+import com.sk89q.worldedit.regions.CuboidRegion;
 import fr.entasia.apis.nbt.ItemNBT;
 import fr.entasia.apis.nbt.NBTComponent;
 import fr.entasia.apis.regionManager.api.RegionManager;
@@ -34,6 +36,50 @@ public class Main extends JavaPlugin {
 		ServerUtils.permMsg("logs.warn", "§6Warning FFARush : "+msg);
 	}
 
+	@Override
+	public void onEnable() {
+		try{
+			main = this;
+			dev = getConfig().getBoolean("dev", false);
+
+			loadRegions();
+
+			saveDefaultConfig();
+			loadConfig();
+
+			sql = new SQLConnection(dev).mariadb("entagames", "playerdata");
+
+
+			getServer().getPluginManager().registerEvents(new OtherListeners(), this);
+			getServer().getPluginManager().registerEvents(new FightListeners(), this);
+			getServer().getPluginManager().registerEvents(new PowerUpsListeners(), this);
+
+			getCommand("ffarushpl").setExecutor(new FFARushPlCmd());
+			getCommand("ffarush").setExecutor(new FFARushCmd());
+
+			new Task5m().runTaskTimerAsynchronously(this, 1150, 6000); // 5 minutes = 300 secondes = 6000 ticks
+
+			getLogger().info("Plugin activé !");
+
+		}catch(Throwable e){
+			e.printStackTrace();
+			getLogger().severe("LE SERVEUR VA S'ETEINDRE !");
+			Bukkit.getServer().shutdown();
+		}
+	}
+
+	public static void loadRegions() throws Throwable {
+		FFAUtils.reg_arena = RegionManager.getRegion("ffa_arena");
+		FFAUtils.reg_spawn = RegionManager.getRegion("ffa_spawn");
+		if(FFAUtils.reg_arena==null)throw new Exception("Arena region not found");
+		if(FFAUtils.reg_spawn==null)throw new Exception("Spawn region not found");
+
+		FFAUtils.reg = new CuboidRegion(
+				BlockVector3Imp.at(FFAUtils.reg_arena.getLowerBound().x, FFAUtils.reg_arena.getLowerBound().y, FFAUtils.reg_arena.getLowerBound().z),
+				BlockVector3Imp.at(FFAUtils.reg_arena.getUpperBound().x, FFAUtils.reg_arena.getUpperBound().y, FFAUtils.reg_arena.getUpperBound().z)
+		);
+	}
+
 	public static void loadConfig() {
 		FFAUtils.world = Bukkit.getWorld(main.getConfig().getString("world"));
 		dev = main.getConfig().getBoolean("dev", false);
@@ -48,118 +94,84 @@ public class Main extends JavaPlugin {
 		String[] a = main.getConfig().getString("spawn").split(";");
 		FFAUtils.spawn = new Location(FFAUtils.world, Double.parseDouble(a[0])+0.5,Double.parseDouble(a[1])+0.5, Double.parseDouble(a[2])+0.5);
 		FFAUtils.damageticks = main.getConfig().getInt(("damageticks"));
-
-
 	}
 
-	@Override
-	public void onEnable() {
-		try{
-			main = this;
-
-			saveDefaultConfig();
-			loadConfig();
-
-			if(getConfig().getBoolean("dev", false)) sql = new SQLConnection(dev).mariadb("root");
-			else sql = new SQLConnection(dev).mariadb("entagames", "playerdata");
+	public static void loadItems(){
 
 
-			getServer().getPluginManager().registerEvents(new OtherListeners(), this);
-			getServer().getPluginManager().registerEvents(new FightListeners(), this);
-			getServer().getPluginManager().registerEvents(new PowerUpsListeners(), this);
+		FFAUtils.ffaitems[0] = ItemNBT.setNBT(new ItemStack(Material.DIAMOND_SWORD),
+				new NBTComponent("{HideFlags:6,AttributeModifiers:[{AttributeName:\"generic.attackDamage\",Name:\"generic.attackDamage\",Amount:5,Operation:0,UUIDLeast:918586,UUIDMost:329936},{AttributeName:\"generic.attackSpeed\",Name:\"generic.attackSpeed\",Amount:10000,Operation:0,UUIDLeast:524170,UUIDMost:178348}],Unbreakable:1,ench:[{id:16,lvl:5}]}"));
 
-			getCommand("ffarushpl").setExecutor(new FFARushPlCmd());
-			getCommand("ffarush").setExecutor(new FFARushCmd());
+		FFAUtils.ffaitems[1] = new ItemStack(Material.IRON_PICKAXE);
+		ItemMeta meta = FFAUtils.ffaitems[1].getItemMeta();
+		meta.addEnchant(Enchantment.DIG_SPEED, 4, true);
+		meta.setUnbreakable(true);
+		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+		FFAUtils.ffaitems[1].setItemMeta(meta);
 
-			new Task5m().runTaskTimerAsynchronously(this, 1150, 6000); // 5 minutes = 300 secondes = 6000 ticks
+		FFAUtils.ffaitems[2] = new ItemStack(Material.BOW);
+		meta = FFAUtils.ffaitems[2].getItemMeta();
+		meta.setDisplayName("§7BlockBow");
+		meta.setUnbreakable(true);
+		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+		FFAUtils.ffaitems[2].setItemMeta(meta);
 
-			FFAUtils.reg_arena = RegionManager.getRegion("ffa_arena");
-			FFAUtils.reg_spawn = RegionManager.getRegion("ffa_spawn");
-			if(FFAUtils.reg_arena==null)throw new Exception("Arena region not found");
-			if(FFAUtils.reg_spawn==null)throw new Exception("Spawn region not found");
+		FFAUtils.ffaitems[3] = new ItemStack(Material.GOLDEN_APPLE, 16);
 
-			FFAUtils.ffaitems[0] = ItemNBT.setNBT(new ItemStack(Material.DIAMOND_SWORD),
-					new NBTComponent("{HideFlags:6,AttributeModifiers:[{AttributeName:\"generic.attackDamage\",Name:\"generic.attackDamage\",Amount:5,Operation:0,UUIDLeast:918586,UUIDMost:329936},{AttributeName:\"generic.attackSpeed\",Name:\"generic.attackSpeed\",Amount:10000,Operation:0,UUIDLeast:524170,UUIDMost:178348}],Unbreakable:1,ench:[{id:16,lvl:5}]}"));
+		FFAUtils.ffaitems[4] = new ItemStack(Material.TNT, 16);
+		meta = FFAUtils.ffaitems[4].getItemMeta();
+		meta.addEnchant(Enchantment.LURE, 1, true);
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		FFAUtils.ffaitems[4].setItemMeta(meta);
 
-			FFAUtils.ffaitems[1] = new ItemStack(Material.IRON_PICKAXE);
-			ItemMeta meta = FFAUtils.ffaitems[1].getItemMeta();
-			meta.addEnchant(Enchantment.DIG_SPEED, 4, true);
-			meta.setUnbreakable(true);
-			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-			FFAUtils.ffaitems[1].setItemMeta(meta);
+		FFAUtils.ffaitems[5] = new ItemStack(Material.FLINT_AND_STEEL);
+		meta = FFAUtils.ffaitems[5].getItemMeta();
+		meta.addEnchant(Enchantment.LURE, 1, true);
+		meta.setUnbreakable(true);
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE);
+		FFAUtils.ffaitems[5].setItemMeta(meta);
 
-			FFAUtils.ffaitems[2] = new ItemStack(Material.BOW);
-			meta = FFAUtils.ffaitems[2].getItemMeta();
-			meta.setDisplayName("§7BlockBow");
-			meta.setUnbreakable(true);
-			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-			FFAUtils.ffaitems[2].setItemMeta(meta);
+		FFAUtils.defaultInv[0] = 0;
+		FFAUtils.defaultInv[1] = 1;
+		FFAUtils.defaultInv[2] = 2;
+		FFAUtils.defaultInv[3] = 3;
+		FFAUtils.defaultInv[4] = 4;
+		FFAUtils.defaultInv[5] = 5;
 
-			FFAUtils.ffaitems[3] = new ItemStack(Material.GOLDEN_APPLE, 16);
+		FFAUtils.ffaarmor[0] = new ItemStack(Material.LEATHER_HELMET);
+		meta = FFAUtils.ffaarmor[0].getItemMeta();
+		meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
+		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+		meta.setUnbreakable(true);
+		FFAUtils.ffaarmor[0].setItemMeta(meta);
 
-			FFAUtils.ffaitems[4] = new ItemStack(Material.TNT, 16);
-			meta = FFAUtils.ffaitems[4].getItemMeta();
+		FFAUtils.ffaarmor[2] = new ItemStack(Material.LEATHER_LEGGINGS);
+		FFAUtils.ffaarmor[2].setItemMeta(meta);
+
+		FFAUtils.ffaarmor[3] = new ItemStack(Material.LEATHER_BOOTS);
+		FFAUtils.ffaarmor[3].setItemMeta(meta);
+
+		FFAUtils.ffaarmor[1] = new ItemStack(Material.IRON_CHESTPLATE);
+		meta = FFAUtils.ffaarmor[1].getItemMeta();
+		meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
+		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+		meta.setUnbreakable(true);
+		FFAUtils.ffaarmor[1].setItemMeta(meta);
+
+		FFAUtils.ffablocks[0] = new ItemStack(Material.SANDSTONE, 64);
+		FFAUtils.ffablocks[1] = new ItemStack(Material.SMOOTH_SANDSTONE, 64);
+		FFAUtils.ffablocks[2] = new ItemStack(Material.QUARTZ_BLOCK, 64);
+		FFAUtils.ffablocks[3] = new ItemStack(Material.NETHER_BRICK, 64);
+		FFAUtils.ffablocks[4] = new ItemStack(Material.PURPUR_BLOCK, 64);
+		FFAUtils.ffablocks[5] = new ItemStack(Material.END_STONE_BRICKS, 64);
+		FFAUtils.ffablocks[6] = new ItemStack(Material.BRICK, 64);
+		FFAUtils.ffablocks[7] = new ItemStack(Material.PRISMARINE, 64);
+
+		for(int i=0;i<FFAUtils.ffablocks.length;i++){
+			meta = FFAUtils.ffablocks[i].getItemMeta();
 			meta.addEnchant(Enchantment.LURE, 1, true);
 			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-			FFAUtils.ffaitems[4].setItemMeta(meta);
-
-			FFAUtils.ffaitems[5] = new ItemStack(Material.FLINT_AND_STEEL);
-			meta = FFAUtils.ffaitems[5].getItemMeta();
-			meta.addEnchant(Enchantment.LURE, 1, true);
-			meta.setUnbreakable(true);
-			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE);
-			FFAUtils.ffaitems[5].setItemMeta(meta);
-
-			FFAUtils.defaultInv[0] = 0;
-			FFAUtils.defaultInv[1] = 1;
-			FFAUtils.defaultInv[2] = 2;
-			FFAUtils.defaultInv[3] = 3;
-			FFAUtils.defaultInv[4] = 4;
-			FFAUtils.defaultInv[5] = 5;
-
-			FFAUtils.ffaarmor[0] = new ItemStack(Material.LEATHER_HELMET);
-			meta = FFAUtils.ffaarmor[0].getItemMeta();
-			meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
-			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-			meta.setUnbreakable(true);
-			FFAUtils.ffaarmor[0].setItemMeta(meta);
-
-			FFAUtils.ffaarmor[2] = new ItemStack(Material.LEATHER_LEGGINGS);
-			FFAUtils.ffaarmor[2].setItemMeta(meta);
-
-			FFAUtils.ffaarmor[3] = new ItemStack(Material.LEATHER_BOOTS);
-			FFAUtils.ffaarmor[3].setItemMeta(meta);
-
-			FFAUtils.ffaarmor[1] = new ItemStack(Material.IRON_CHESTPLATE);
-			meta = FFAUtils.ffaarmor[1].getItemMeta();
-			meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
-			meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-			meta.setUnbreakable(true);
-			FFAUtils.ffaarmor[1].setItemMeta(meta);
-
-			FFAUtils.ffablocks[0] = new ItemStack(Material.SANDSTONE, 64);
-			FFAUtils.ffablocks[1] = new ItemStack(Material.SMOOTH_SANDSTONE, 64);
-			FFAUtils.ffablocks[2] = new ItemStack(Material.QUARTZ_BLOCK, 64);
-			FFAUtils.ffablocks[3] = new ItemStack(Material.NETHER_BRICK, 64);
-			FFAUtils.ffablocks[4] = new ItemStack(Material.PURPUR_BLOCK, 64);
-			FFAUtils.ffablocks[5] = new ItemStack(Material.END_STONE_BRICKS, 64);
-			FFAUtils.ffablocks[6] = new ItemStack(Material.BRICK, 64);
-			FFAUtils.ffablocks[7] = new ItemStack(Material.PRISMARINE, 64);
-
-			for(int i=0;i<FFAUtils.ffablocks.length;i++){
-				meta = FFAUtils.ffablocks[i].getItemMeta();
-				meta.addEnchant(Enchantment.LURE, 1, true);
-				meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-				FFAUtils.ffablocks[i].setItemMeta(meta);
-			}
-
-			getLogger().info("Plugin activé !");
-
-		}catch(Throwable e){
-			e.printStackTrace();
-			getLogger().severe("LE SERVEUR VA S'ETEINDRE !");
-			Bukkit.getServer().shutdown();
+			FFAUtils.ffablocks[i].setItemMeta(meta);
 		}
 	}
-
 }

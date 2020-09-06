@@ -125,8 +125,9 @@ public class PowerUpsListeners implements Listener {
 		}
 		e.blockList().clear();
 
-		for(Entity e2 : e.getEntity().getWorld().getNearbyLivingEntities(e.getEntity().getLocation(), 4)){
+		for(Entity e2 : e.getEntity().getWorld().getNearbyEntities(e.getEntity().getLocation(), 4.5, 4.5, 4.5)){
 			if(e2 instanceof TNTPrimed){
+
 				simuleExplosion(e2.getLocation(), vecs);
 				e2.remove();
 			}

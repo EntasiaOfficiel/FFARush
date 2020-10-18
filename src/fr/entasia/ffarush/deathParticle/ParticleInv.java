@@ -118,7 +118,7 @@ public class ParticleInv {
         inv.setItem(4,cosmetique);
 
         ItemBuilder builder = new ItemBuilder(Material.LIME_STAINED_GLASS_PANE).name("§2Acheter").lore("§2Cout : "+c.price +" coins");
-        inv.setItem(11, builder.build());
+        inv.setItem(15, builder.build());
 
         builder = new ItemBuilder(Material.RED_STAINED_GLASS_PANE).name("§cAnnuler").lore("§cAnnuler l'achat");
         inv.setItem(11, builder.build());

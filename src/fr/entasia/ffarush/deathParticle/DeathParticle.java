@@ -1,9 +1,16 @@
 package fr.entasia.ffarush.deathParticle;
 
 import fr.entasia.apis.other.InstantFirework;
+import fr.entasia.ffarush.Main;
 import org.bukkit.*;
+import org.bukkit.entity.Bat;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public enum DeathParticle {
 
@@ -39,7 +46,35 @@ public enum DeathParticle {
                     InstantFirework.explode(loce.add(0,2.5,0),effects);
                 }
             }
-    );
+    ),
+    BATS(104, new ItemStack(Material.BAT_SPAWN_EGG), "§7Chauves souris d'Halloween", "§7Il n'y a pas de raison qu'elles ne sortent pas pour Halloween", 1000,
+
+            new ParticleStruct() {
+                @Override
+                public void update(Location loc) {
+                    ArrayList<Integer> batIds = new ArrayList<>();
+                    for(int i=0;i<10;i++){
+                        Bat bat = spawnBat(loc);
+                        batIds.add(bat.getEntityId());
+                    }
+
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+                        public void run() {
+                            for(int id : batIds){
+                                Bukkit.getWorlds().forEach(w -> w.getEntitiesByClass(Bat.class).stream()
+                                                .filter(b -> batIds.contains(b.getEntityId()))
+                                                .forEach(Bat::remove));
+                            }
+                        }
+                    }, 50L);
+
+                }
+            }
+
+
+    )
+
+    ;
 
 
 
@@ -67,6 +102,14 @@ public enum DeathParticle {
         meta.setDisplayName(nom);
         itemStack.setItemMeta(meta);
         this.structs = structs;
+    }
+
+    public static Bat spawnBat(Location loc){
+        Location bat2l = loc.add(-1.0D,1,0);
+        Bat bat = (Bat) Objects.requireNonNull(Bukkit.getWorld(loc.getWorld().getName())).spawnEntity(loc, EntityType.BAT);
+        bat.setInvulnerable(true);
+        loc.getWorld().playSound(loc, Sound.ENTITY_BAT_HURT, 5.0F, 5.0F);
+        return bat;
     }
 
 

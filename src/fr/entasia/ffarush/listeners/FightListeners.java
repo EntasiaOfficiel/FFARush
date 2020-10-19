@@ -4,6 +4,7 @@ import fr.entasia.apis.regionManager.api.RegionManager;
 import fr.entasia.egtools.utils.MoneyUtils;
 import fr.entasia.ffarush.FFAUtils;
 import fr.entasia.ffarush.utils.FFAPlayer;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -79,13 +80,15 @@ public class FightListeners implements Listener {
 	public static void kill(FFAPlayer ffp){
 		ffp.deaths++;
 		ffp.ks = 0;
-		if(ffp.deathParticle == null){
-			ffp.p.getWorld().spawnParticle(Particle.LAVA, ffp.p.getLocation(), 50, 0.4, 0.7, 0.4, 0.08);
-		} else{
-			ffp.deathParticle.update(ffp.p.getLocation());
-		}
+		Location lasLoc = ffp.p.getLocation();
+
 
 		FFAUtils.tpSpawnFFA(ffp.p, false);
+		if(ffp.deathParticle == null){
+			ffp.p.getWorld().spawnParticle(Particle.LAVA, lasLoc, 50, 0.4, 0.7, 0.4, 0.08);
+		} else{
+			ffp.deathParticle.update(lasLoc);
+		}
 		ffp.sb.refreshDeaths();
 		ffp.sb.refreshRatio();
 		ffp.sb.refreshKs();

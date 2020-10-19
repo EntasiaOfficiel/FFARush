@@ -57,6 +57,7 @@ public enum DeathParticle {
                         Bat bat = spawnBat(loc);
                         batIds.add(bat.getEntityId());
                     }
+                    loc.getWorld().playSound(loc, Sound.ENTITY_BAT_HURT, 2.0F, 2.0F);
 
                     Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
                         public void run() {
@@ -105,10 +106,10 @@ public enum DeathParticle {
     }
 
     public static Bat spawnBat(Location loc){
-        Location bat2l = loc.add(-1.0D,1,0);
+        Location bat2l = loc.add(0,1,0);
         Bat bat = (Bat) Objects.requireNonNull(Bukkit.getWorld(loc.getWorld().getName())).spawnEntity(loc, EntityType.BAT);
         bat.setInvulnerable(true);
-        loc.getWorld().playSound(loc, Sound.ENTITY_BAT_HURT, 5.0F, 5.0F);
+
         return bat;
     }
 

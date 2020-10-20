@@ -91,11 +91,13 @@ public class PowerUpsListeners implements Listener {
 						e.getPlayer().setVelocity(new Vector(0, 0.9, 0));
 					}
 				}.runTask(Main.main);
-				new BukkitRunnable() {
-					public void run() {
-						e.getPlayer().setGliding(true);
-					}
-				}.runTaskLater(Main.main, 14);
+				if(!e.getPlayer().isGliding()){
+					new BukkitRunnable() {
+						public void run() {
+							e.getPlayer().setGliding(true);
+						}
+					}.runTaskLater(Main.main, 14);
+				}
 			}
 		}
 	}

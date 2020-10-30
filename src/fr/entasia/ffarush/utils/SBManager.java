@@ -1,9 +1,9 @@
 package fr.entasia.ffarush.utils;
 
-import fr.entasia.apis.other.ScoreBoard;
+import fr.entasia.apis.other.ScoreBoardHelper;
 import fr.entasia.egtools.utils.MoneyUtils;
 
-public class SBManager extends ScoreBoard {
+public class SBManager extends ScoreBoardHelper {
 
 	public FFAPlayer ffp;
 

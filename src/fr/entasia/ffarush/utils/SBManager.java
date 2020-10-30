@@ -12,8 +12,8 @@ public class SBManager extends ScoreBoardHelper {
 		this.ffp = ffp;
 	}
 
-	public void refresh(){
-		set();
+	@Override
+	public void setSlots(){
 		staticLine(19, "§b§m-----------");
 		refreshMoney();
 		staticLine(17," ");
@@ -23,20 +23,19 @@ public class SBManager extends ScoreBoardHelper {
 		staticLine(13, "  ");
 		refreshKs();
 		staticLine(11, "§b§m----------- ");
-		staticLine(10, "§bplay.enta§7sia.fr");
 	}
 
 	public void refreshMoney(){
 		int a = MoneyUtils.getMoney(ffp.p.getUniqueId());
-		changeLine(18, "§7Monnaie : §b"+a);
+		dynamicLine(18, "§7Monnaie : §b"+a);
 	}
 
 	public void refreshKills(){
-		changeLine(16, "§7Kills : §b"+ffp.kills);
+		dynamicLine(16, "§7Kills : §b"+ffp.kills);
 	}
 
 	public void refreshDeaths(){
-		changeLine(15,"§7Morts : §b"+ffp.deaths);
+		dynamicLine(15,"§7Morts : §b"+ffp.deaths);
 	}
 
 	public void refreshRatio(){
@@ -48,11 +47,11 @@ public class SBManager extends ScoreBoardHelper {
 			if(r%1==0) ratio = ratio.substring(0, ratio.length()-2);
 			ratio = "§7Ratio : §b"+ratio;
 		}
-		changeLine(14, ratio);
+		dynamicLine(14, ratio);
 	}
 
 	public void refreshKs(){
-		changeLine(12, "§7KillStreak : §b"+ffp.ks);
+		dynamicLine(12, "§7KillStreak : §b"+ffp.ks);
 	}
 
 

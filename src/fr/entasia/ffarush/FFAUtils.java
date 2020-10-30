@@ -84,7 +84,7 @@ public class FFAUtils {
 			}
 			p.getInventory().setItem(9, new ItemStack(Material.ARROW, 2));
 
-			ffp.sb.set();
+			ffp.sb.reload();
 		}
 	}
 
@@ -100,7 +100,7 @@ public class FFAUtils {
 			PlayerUtils.hardReset(p);
 			p.setGameMode(GameMode.SURVIVAL);
 
-			ffp.sb.refresh();
+			ffp.sb.reload();
 
 			p.getInventory().setHeldItemSlot(4);
 
